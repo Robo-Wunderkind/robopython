@@ -1,0 +1,82 @@
+Metadata-Version: 1.1
+Name: robopython
+Version: 0.2.6
+Summary: Robo Wunderkind Python API - BLED112 USB Dongle Required
+Home-page: https://github.com/JonRobo/robopython
+Author: Jonathan William Morley
+Author-email: jon@robowunderkind.com
+License: Apache Software License 2.0
+Description: ============
+        robopython
+        ============
+        
+        
+        .. image:: https://img.shields.io/pypi/v/robopython.svg
+                :target: https://pypi.python.org/pypi/robopython
+        
+        .. image:: https://img.shields.io/travis/JonRobo/robopython.svg
+                :target: https://travis-ci.org/JonRobo/robopython
+        
+        .. image:: https://readthedocs.org/projects/robopython/badge/?version=latest
+                :target: https://robopython.readthedocs.io/en/latest/?badge=latest
+                :alt: Documentation Status
+        
+        
+        
+        
+        Robo Wunderkind Python API - BLED112 USB Dongle Required
+        
+        
+        * Free software: Apache Software License 2.0
+        * Documentation: https://robopython.readthedocs.io.
+        
+        
+        Features
+        ----------
+        
+        * New Module integration such as Line Tracker
+        * MQTT Wi-Fi networking
+        * Fuzzy Logic Filter for Sensors/States
+        
+        Getting Started
+        -----------------
+        * Install with: pip install robopython
+        
+        * Create an instance of Robo object by doing: my_robo = Robo("<BLE Name>")
+        
+        * Test Functionality by playing a sound with: my_robo.System.play_sound(0)
+        
+        Troubleshooting
+        ------------------
+        If you get an error saying No BGAPI compatable device is detected please insert the BLED112 USB dongle or switch USB ports
+        If problem persists you can identify the COM port explicitley with my_robo = Robo("<BLE Name>", COM PORT)
+        
+        
+        
+        =======
+        History
+        =======
+        
+        0.1.0 (2018-11-06)
+        ------------------
+        
+        * First release on PyPI.
+        
+        0.2.6 (2018-11-12)
+        ------------------
+        
+        * Latest release on PyPI.
+        
+Keywords: robopython
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7

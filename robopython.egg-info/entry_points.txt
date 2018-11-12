@@ -1,0 +1,3 @@
+[console_scripts]
+robopython = robopython.cli:main
+

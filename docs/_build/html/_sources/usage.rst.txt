@@ -1,0 +1,9 @@
+=====
+Usage
+=====
+
+To use robowunderpy in a project::
+
+import robowunderpy
+OR
+from robowunderpy import Robo
