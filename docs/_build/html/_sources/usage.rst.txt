@@ -2,8 +2,10 @@
 Usage
 =====
 
-To use robowunderpy in a project::
+To use robopython in a project::
 
-import robowunderpy
-OR
-from robowunderpy import Robo
+| import robopython
+| OR
+| from robopython import Robo
+|
+| my_robo = Robo("BLE_Name")

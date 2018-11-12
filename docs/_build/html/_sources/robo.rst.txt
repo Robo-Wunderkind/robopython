@@ -10,9 +10,11 @@ Create Robo Instance
 
 	my_robo = Robo(BLE_Name)
 
-change_ble_name(self, name)
-###############################
+Change BLE Name
+###############
 
+| change_ble_name(``self``, ``name``)
+| 
 | ``name`` must be 16 characters or less e.g name = "Robo1"
 | Robo will reboot once the command is received and the name is changed
 | You can use an instance of BLED112 to scan() and see all discoverable devices or simply check on your phone that the new ble name has been taken	
@@ -21,30 +23,48 @@ change_ble_name(self, name)
 
 	my_robo.change_ble_name("Robo2")
 	
-check_drive_action(self)
-########################
+Check Drive Action 
+##################
 
+| check_drive_action(``self``)
+| 
 | returns the status of the drive action 1 = done, None = in progress, 0 = failed
 
-check_turn_action(self)
-#######################
+::
 
+	if my_robo.check_drive_action():
+		print "Drive Action Complete"
+
+Check Turn Action
+#################
+
+| check_turn_action(``self``)
+|
 | returns the status of the turn action 1 = done, None = in progress, 0 = failed	
-	
-delay(self, delay_time)
-###########################
 
+::
+
+	if my_robo.check_turn_action():
+		print "Turn Action Complete"
+	
+Delay
+#####
+
+| delay(``self``, ``delay_time``)
+|
 | ``delay_time`` is the time in seconds to wait until function returns	
 
 ::
 
 	my_robo.delay(1)
 	
-display_text(self, text, matrices)
-##########################################
+Display Text
+############
 
-Cascaded diplay of text on one or more LED Matices
-	
+| display_text(``self``, ``text``, ``matrices``)
+|
+| Cascaded diplay of text on one or more LED Matices
+|	
 | ``text`` is a string to be displayed on the matrices
 | ``matrices`` is a list of Matrix objects that should participate in the text display
 
@@ -52,11 +72,14 @@ Cascaded diplay of text on one or more LED Matices
 
 	my_robo.display_text("Welcome to Robo Wundrkind", [my_robo.Matrix1, my_robo.Matrix2, my_robo.Matrix3])
 	
-drive(self, vel, distance, direction, wait=1, motors=(1, 2), wd=89)
-###########################################################################################
+Drive
+#####
 
-drive is Robo's simplified command to have Robo drive a certain distance assuming a 2 motor configuration
-	
+
+| drive(``self``, ``vel``, ``distance``, ``direction``, ``wait=1``, ``motors=(1, 2)``, ``wd=89``)
+| 
+| drive is Robo's simplified command to have Robo drive a certain distance assuming a 2 motor configuration
+| 	
 | ``vel`` is the desired velocity from 0-100%
 | ``distance`` is how far in centimeters Robo should drive
 | ``direction`` will detirmine forward or backward
@@ -69,9 +92,11 @@ drive is Robo's simplified command to have Robo drive a certain distance assumin
 
 	my_robo.drive(80, 30, 1)
 
-get_build(self)
-###############
+Get Robo Build
+##############
 
+| get_build(``self``)
+|
 | returns a list of Robo Wunderkind moduels that are currently attached
 | The is updated automatically upon initialization of Robo object as well as when there has been a change in the build
 | The latest build is stored in self.build -> my_robo.build	
@@ -80,9 +105,11 @@ get_build(self)
 
 	build = my_robo.get_build()
 	
-get_characteristics(self)
-#########################
+Get BLE Characteristics
+#######################
 
+| get_characteristics(``self``)
+|
 | characteristics = my_robo.get_characteristics()
 | returns a list of GATT characteristics 
 
@@ -90,9 +117,11 @@ get_characteristics(self)
 
 	characteristics = my_robo.get_characteristics()
 
-get_rssi(self)
-##############
+Get RSSI
+########
 
+| get_rssi(``self``)
+|
 | rssi = my_robo.get_rssi()
 | returns the BLE signal strength rssi value	
 
@@ -100,11 +129,13 @@ get_rssi(self)
 
 	signal_strength = my_robo.get_rssi()
 	
-set_drive(self, motor_cmds, vel, distance, action_id, wd=0x59)
-##############################################################
+Set Drive Command
+#################
 
+| set_drive(``self``, ``motor_cmds``, ``vel``, ``distance``, ``action_id``, ``wd=0x59``)
+|
 | set_drive is Robo's generic command to set the velocity and distance commands to multiple motors at once
-
+|
 | ``motor_cmds`` is a list of motor objects folloed by the direction that motor should spin: [[1,0],[2,1],[3,0],[4,1]] motors from 1-6 are valid if connected
 | ``vel`` is the desired velocity from 0-100%
 | ``distance`` is the desired distance to travel in centimeters
@@ -115,29 +146,35 @@ set_drive(self, motor_cmds, vel, distance, action_id, wd=0x59)
 
 	my_robo.set_drive([[1,0],[2,1],[3,0],[4,1]], 50, 100, my_robo.drive_id)
 
-stop(self)
-##########
+Stop
+####
 
+| stop(``self``)
+|
 | stops all motors from moving
 
 ::
 
 	my_robo.stop()
 
-stop_all(self)
-##############
+Stop All Actions
+################
 
+| stop_all(``self``)
+| 
 | stops all outputs 
 
 ::
 
 	my_robo.stop_all()	
 	
-turn(self, vel, angle, direction, wait=1, motors=(1, 2), wd=89, turning_radius=91)
-##################################################################################
+Turn
+####
 
+| turn(``self``, ``vel``, ``angle``, ``direction``, ``wait=1``, ``motors=(1, 2)``, ``wd=89``, ``turning_radius=91``)
+| 
 | turn is Robo's simplified command to have Robo turn a number of degrees assuming a 2 motor configuration
-	
+| 
 | ``vel`` is the desired velocity from 0-100%
 | ``angle`` is the amount to have Robo turn in degrees
 | ``direction`` will detirmine clockwise or counter clockwise rotation
