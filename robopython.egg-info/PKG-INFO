@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: robopython
-Version: 0.3.3
+Version: 0.3.4
 Summary: Robo Wunderkind Python API - BLED112 USB Dongle Required
 Home-page: https://github.com/JonRobo/robopython
 Author: Jonathan William Morley
@@ -62,7 +62,7 @@ Description: ============
         
         * First release on PyPI.
         
-        0.2.6 (2018-11-12)
+        0.3.4 (2018-11-12)
         ------------------
         
         * Latest release on PyPI.
