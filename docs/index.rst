@@ -10,7 +10,6 @@ Welcome to robopython's documentation!
    usage
    robo
    bled112
-   system
    contributing
    authors
    history

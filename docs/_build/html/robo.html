@@ -51,6 +51,18 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_robo</span> <span class="o">=</span> <span class="n">Robo</span><span class="p">(</span><span class="n">BLE_Name</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="section" id="battery-level">
+<h2>Battery Level<a class="headerlink" href="#battery-level" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">battery_level(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Returns the battery level in % and the status.</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">my_robo</span><span class="o">.</span><span class="n">battery_level</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">80</span><span class="p">,</span> <span class="n">Discharging</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="change-ble-name">
 <h2>Change BLE Name<a class="headerlink" href="#change-ble-name" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
@@ -132,6 +144,17 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="firmware-version">
+<h2>Firmware Version<a class="headerlink" href="#firmware-version" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">firmware(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Returns the firmware version of Robo</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_robo</span><span class="o">.</span><span class="n">firmware</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="get-robo-build">
 <h2>Get Robo Build<a class="headerlink" href="#get-robo-build" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
@@ -183,6 +206,17 @@
 <div class="line"><code class="docutils literal notranslate"><span class="pre">wd</span></code> is the diameter of the wheels used, default is 89mm or 0x59mm in hex. If you choose to change the wheels be sure to pass in the new wheel diameter</div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_robo</span><span class="o">.</span><span class="n">set_drive</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">my_robo</span><span class="o">.</span><span class="n">drive_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sound-playback">
+<h2>Sound Playback<a class="headerlink" href="#sound-playback" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">sound(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">sound</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Plays the desired sound clip on the system cube speaker 0-7 are valid</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_robo</span><span class="o">.</span><span class="n">sound</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -238,16 +272,19 @@
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Robo</a><ul>
+<li><a class="reference internal" href="#battery-level">Battery Level</a></li>
 <li><a class="reference internal" href="#change-ble-name">Change BLE Name</a></li>
 <li><a class="reference internal" href="#check-drive-action">Check Drive Action</a></li>
 <li><a class="reference internal" href="#check-turn-action">Check Turn Action</a></li>
 <li><a class="reference internal" href="#delay">Delay</a></li>
 <li><a class="reference internal" href="#display-text">Display Text</a></li>
 <li><a class="reference internal" href="#drive">Drive</a></li>
+<li><a class="reference internal" href="#firmware-version">Firmware Version</a></li>
 <li><a class="reference internal" href="#get-robo-build">Get Robo Build</a></li>
 <li><a class="reference internal" href="#get-ble-characteristics">Get BLE Characteristics</a></li>
 <li><a class="reference internal" href="#get-rssi">Get RSSI</a></li>
 <li><a class="reference internal" href="#set-drive-command">Set Drive Command</a></li>
+<li><a class="reference internal" href="#sound-playback">Sound Playback</a></li>
 <li><a class="reference internal" href="#stop">Stop</a></li>
 <li><a class="reference internal" href="#stop-all-actions">Stop All Actions</a></li>
 <li><a class="reference internal" href="#turn">Turn</a></li>

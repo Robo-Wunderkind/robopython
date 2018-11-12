@@ -10,6 +10,18 @@ Create Robo Instance
 
 	my_robo = Robo(BLE_Name)
 
+Battery Level 
+##################
+
+| battery_level(``self``)
+| 
+| Returns the battery level in % and the status. 
+
+::
+
+	>>> print my_robo.battery_level()
+	>>> 80, Discharging
+	
 Change BLE Name
 ###############
 
@@ -92,6 +104,17 @@ Drive
 
 	my_robo.drive(80, 30, 1)
 
+Firmware Version
+#####
+
+| firmware(``self``)
+|
+| Returns the firmware version of Robo
+
+::
+
+	my_robo.firmware()	
+	
 Get Robo Build
 ##############
 
@@ -146,6 +169,19 @@ Set Drive Command
 
 	my_robo.set_drive([[1,0],[2,1],[3,0],[4,1]], 50, 100, my_robo.drive_id)
 
+	
+Sound Playback
+####
+
+| sound(``self``, ``sound``)
+|
+| Plays the desired sound clip on the system cube speaker 0-7 are valid
+
+::
+
+	my_robo.sound(0)
+	
+	
 Stop
 ####
 

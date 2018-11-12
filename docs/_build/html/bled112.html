@@ -18,7 +18,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="System Class" href="system.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
     <link rel="prev" title="Robo" href="robo.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="system.html" title="System Class"
+          <a href="contributing.html" title="Contributing"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="robo.html" title="Robo"
@@ -58,6 +58,57 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="id1">
+<h1>BLED112 Class<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Create BLED112 Instance</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span> <span class="o">=</span> <span class="n">BLED112</span><span class="p">(</span><span class="n">com_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="connect-to-device">
+<h2>Connect to Device<a class="headerlink" href="#connect-to-device" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">connect_ble(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Connects to the BLE device with the name passed into the function if it exists</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span><span class="o">.</span><span class="n">connect_ble</span><span class="p">(</span><span class="s2">&quot;Robo&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scan">
+<h2>Scan<a class="headerlink" href="#scan" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">scan(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Scans for nearby BLE devices and returns a list of dictionaries containing BLE device data</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span><span class="o">.</span><span class="n">scan</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="start">
+<h2>Start<a class="headerlink" href="#start" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">start(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Starts the BLE dongle</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stop">
+<h2>Stop<a class="headerlink" href="#stop" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">start(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Starts the BLE dongle</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 
 
           </div>
@@ -65,12 +116,24 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">BLED112 Class</a></li>
+<li><a class="reference internal" href="#id1">BLED112 Class</a><ul>
+<li><a class="reference internal" href="#connect-to-device">Connect to Device</a></li>
+<li><a class="reference internal" href="#scan">Scan</a></li>
+<li><a class="reference internal" href="#start">Start</a></li>
+<li><a class="reference internal" href="#stop">Stop</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="robo.html"
                         title="previous chapter">Robo</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="system.html"
-                        title="next chapter">System Class</a></p>
+  <p class="topless"><a href="contributing.html"
+                        title="next chapter">Contributing</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -101,7 +164,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="system.html" title="System Class"
+          <a href="contributing.html" title="Contributing"
              >next</a> |</li>
         <li class="right" >
           <a href="robo.html" title="Robo"
