@@ -1,7 +1,7 @@
 import functools
 import logging
 
-from robowunderpy.pygatt import BLEDevice, exceptions
+from robopython.pygatt import BLEDevice, exceptions
 
 log = logging.getLogger(__name__)
 

@@ -16,9 +16,9 @@ from uuid import UUID
 from enum import Enum
 from collections import defaultdict
 
-from robowunderpy.pygatt.exceptions import NotConnectedError
-from robowunderpy.pygatt.backends import BLEBackend, Characteristic, BLEAddressType
-from robowunderpy.pygatt.util import uuid16_to_uuid
+from robopython.pygatt.exceptions import NotConnectedError
+from robopython.pygatt.backends import BLEBackend, Characteristic, BLEAddressType
+from robopython.pygatt.util import uuid16_to_uuid
 
 from . import bglib, constants
 from .exceptions import BGAPIError, ExpectedResponseTimeout

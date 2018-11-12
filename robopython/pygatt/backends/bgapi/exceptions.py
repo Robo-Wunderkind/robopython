@@ -1,4 +1,4 @@
-from robowunderpy.pygatt.exceptions import BLEError
+from robopython.pygatt.exceptions import BLEError
 
 
 class BGAPIError(BLEError):

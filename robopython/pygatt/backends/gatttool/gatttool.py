@@ -13,9 +13,9 @@ import subprocess
 from uuid import UUID
 from contextlib import contextmanager
 
-from robowunderpy.pygatt.exceptions import NotConnectedError, BLEError, NotificationTimeout
-from robowunderpy.pygatt.backends import BLEBackend, Characteristic, BLEAddressType
-from robowunderpy.pygatt.backends.backend import DEFAULT_CONNECT_TIMEOUT_S
+from robopython.pygatt.exceptions import NotConnectedError, BLEError, NotificationTimeout
+from robopython.pygatt.backends import BLEBackend, Characteristic, BLEAddressType
+from robopython.pygatt.backends.backend import DEFAULT_CONNECT_TIMEOUT_S
 from .device import GATTToolBLEDevice
 
 log = logging.getLogger(__name__)
