@@ -5,6 +5,15 @@ Installation
 ============
 
 
+Python and Pip Installation
+---------------------------
+If you don't have `pip`_ installed, this `Python installation guide`_ can guide
+you through the process.
+
+.. _pip: https://pip.pypa.io
+.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+
+
 Stable release
 --------------
 
@@ -15,12 +24,6 @@ To install robopython, run this command in your terminal:
     $ pip install robopython
 
 This is the preferred method to install robopython, as it will always install the most recent stable release.
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
-
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 
 From sources

@@ -38,6 +38,7 @@ Getting Started
 
 * Test Functionality by playing a sound with: my_robo.System.play_sound(0)
 
+
 Troubleshooting
 ------------------
 If you get an error saying No BGAPI compatable device is detected please insert the BLED112 USB dongle or switch USB ports
