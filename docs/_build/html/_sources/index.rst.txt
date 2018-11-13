@@ -8,16 +8,16 @@ Welcome to robopython's documentation!
    readme
    installation
    usage
-   robo
    bled112
-   motor
-   servo
-   rgb
-   ultrasonic
-   motion
    button
    light
    matrix
+   motion
+   motor
+   rgb
+   servo
+   ultrasonic
+   robo
    contributing
    authors
    history
