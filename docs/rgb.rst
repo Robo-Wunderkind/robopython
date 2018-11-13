@@ -1,54 +1,138 @@
 =======
-BLED112
+RGB LED
 =======
 
-
-Create BLED112 Instance
-
-::
-
-	BLE = BLED112(com_port=None)
 	
-Connect to Device
-#################
+Set Colour
+##########
 
-| connect_ble(``self``, ``name``)
+| set_colour(``self``, ``red``, ``green``, ``blue``)
 | 
-| Connects to the BLE device with the name passed into the function if it exists
+| Sets the RGB to the desired colour using a combination of red, green blue colour intensities 
+|
+| ``red`` 0-255 value for the red colour intensity
+| ``green`` 0-255 value for the green colour intensity
+| ``blue`` 0-255 value for the blue colour intensity
 
 ::
 
-	BLE.connect_ble("Robo")
+	Robo.RGB1.set_colour(120,25,255)
 
-Scan
-####
+Blink RGB
+#########
 
-| scan(``self``)
+| blink_rgb(``self``, ``red``, ``green``, ``blue``, ``num_blinks``,``period`` )
 | 
-| Scans for nearby BLE devices and returns a list of dictionaries containing BLE device data
+| ``red`` 0-255 value for the red colour intensity
+| ``green`` 0-255 value for the green colour intensity
+| ``blue`` 0-255 value for the blue colour intensity
+| ``num_blinks`` number of blinks
+| ``period`` period in milliseconds 
 
 ::
 
-	BLE.scan()	
+	Robo.RGB1.blink_rgb(255, 255, 255, 5, 1000)	# blink white 5 times
 	
-Start
+Timed RGB
+#########
+
+| timed_rgb(``self``, ``red``, ``green``, ``blue``, ``time`` )
+| 
+| ``red`` 0-255 value for the red colour intensity
+| ``green`` 0-255 value for the green colour intensity
+| ``blue`` 0-255 value for the blue colour intensity
+| ``time`` LED on time in seconds
+
+
+::
+
+	Robo.RGB1.timed_rgb(255, 255, 255, 2)	# white light for 2 seconds
+
+Off
+###
+
+| off(``self``)
+| 
+| Turns off the LED
+
+::
+
+	Robo.RGB1.off()
+	
+Red
+###
+
+| red(``self``)
+| 
+| Turns the LED Red
+
+::
+
+	Robo.RGB1.red()
+
+Green
 #####
 
-| start(``self``)
+| green(``self``)
 | 
-| Starts the BLE dongle
+| Turns the LED Green
 
 ::
 
-	BLE.start()
+	Robo.RGB1.green()
 
-Stop
+Blue
 ####
 
-| start(``self``)
+| blue(``self``)
 | 
-| Starts the BLE dongle
+| Turns the LED Blue
 
 ::
 
-	BLE.start()
+	Robo.RGB1.blue()
+
+Yellow
+######
+
+| yellow(``self``)
+| 
+| Turns the LED Yellow
+
+::
+
+	Robo.RGB1.yellow()
+	
+Orange
+######
+
+| orange(``self``)
+| 
+| Turns the LED Orange
+
+::
+
+	Robo.RGB1.orange()
+
+White
+#####
+
+| white(``self``)
+| 
+| Turns the LED White
+
+::
+
+	Robo.RGB1.white()
+	
+Check LED Action
+################
+
+| check_action(``self``)
+| 
+| Returns 1 if the action is completed
+
+::
+
+	while not Robo.RGB1.check_action():
+		# do stuff

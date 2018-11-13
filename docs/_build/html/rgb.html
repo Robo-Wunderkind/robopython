@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>BLED112 &#8212; robopython 0.3.5 documentation</title>
+    <title>RGB LED &#8212; robopython 0.3.5 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -42,53 +42,138 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="bled112">
-<h1>BLED112<a class="headerlink" href="#bled112" title="Permalink to this headline">¶</a></h1>
-<p>Create BLED112 Instance</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span> <span class="o">=</span> <span class="n">BLED112</span><span class="p">(</span><span class="n">com_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="section" id="connect-to-device">
-<h2>Connect to Device<a class="headerlink" href="#connect-to-device" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="rgb-led">
+<h1>RGB LED<a class="headerlink" href="#rgb-led" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="set-colour">
+<h2>Set Colour<a class="headerlink" href="#set-colour" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">connect_ble(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code>)</div>
+<div class="line">set_colour(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">green</span></code>, <code class="docutils literal notranslate"><span class="pre">blue</span></code>)</div>
 <div class="line"><br /></div>
-<div class="line">Connects to the BLE device with the name passed into the function if it exists</div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span><span class="o">.</span><span class="n">connect_ble</span><span class="p">(</span><span class="s2">&quot;Robo&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="scan">
-<h2>Scan<a class="headerlink" href="#scan" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">scan(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line">Sets the RGB to the desired colour using a combination of red, green blue colour intensities</div>
 <div class="line"><br /></div>
-<div class="line">Scans for nearby BLE devices and returns a list of dictionaries containing BLE device data</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">red</span></code> 0-255 value for the red colour intensity</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">green</span></code> 0-255 value for the green colour intensity</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">blue</span></code> 0-255 value for the blue colour intensity</div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span><span class="o">.</span><span class="n">scan</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">set_colour</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="start">
-<h2>Start<a class="headerlink" href="#start" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="blink-rgb">
+<h2>Blink RGB<a class="headerlink" href="#blink-rgb" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">start(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line">blink_rgb(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">green</span></code>, <code class="docutils literal notranslate"><span class="pre">blue</span></code>, <code class="docutils literal notranslate"><span class="pre">num_blinks</span></code>,``period`` )</div>
 <div class="line"><br /></div>
-<div class="line">Starts the BLE dongle</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">red</span></code> 0-255 value for the red colour intensity</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">green</span></code> 0-255 value for the green colour intensity</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">blue</span></code> 0-255 value for the blue colour intensity</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">num_blinks</span></code> number of blinks</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">period</span></code> period in milliseconds</div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">blink_rgb</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>     <span class="c1"># blink white 5 times</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="stop">
-<h2>Stop<a class="headerlink" href="#stop" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="timed-rgb">
+<h2>Timed RGB<a class="headerlink" href="#timed-rgb" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">start(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line">timed_rgb(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">green</span></code>, <code class="docutils literal notranslate"><span class="pre">blue</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code> )</div>
 <div class="line"><br /></div>
-<div class="line">Starts the BLE dongle</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">red</span></code> 0-255 value for the red colour intensity</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">green</span></code> 0-255 value for the green colour intensity</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">blue</span></code> 0-255 value for the blue colour intensity</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">time</span></code> LED on time in seconds</div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BLE</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">timed_rgb</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>   <span class="c1"># white light for 2 seconds</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="off">
+<h2>Off<a class="headerlink" href="#off" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">off(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Turns off the LED</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="red">
+<h2>Red<a class="headerlink" href="#red" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">red(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Turns the LED Red</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">red</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="green">
+<h2>Green<a class="headerlink" href="#green" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">green(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Turns the LED Green</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">green</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="blue">
+<h2>Blue<a class="headerlink" href="#blue" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">blue(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Turns the LED Blue</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">blue</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="yellow">
+<h2>Yellow<a class="headerlink" href="#yellow" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">yellow(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Turns the LED Yellow</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">yellow</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="orange">
+<h2>Orange<a class="headerlink" href="#orange" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">orange(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Turns the LED Orange</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">orange</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="white">
+<h2>White<a class="headerlink" href="#white" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">white(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Turns the LED White</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">white</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-led-action">
+<h2>Check LED Action<a class="headerlink" href="#check-led-action" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">check_action(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Returns 1 if the action is completed</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="ow">not</span> <span class="n">Robo</span><span class="o">.</span><span class="n">RGB1</span><span class="o">.</span><span class="n">check_action</span><span class="p">():</span>
+        <span class="c1"># do stuff</span>
 </pre></div>
 </div>
 </div>
@@ -102,11 +187,18 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">BLED112</a><ul>
-<li><a class="reference internal" href="#connect-to-device">Connect to Device</a></li>
-<li><a class="reference internal" href="#scan">Scan</a></li>
-<li><a class="reference internal" href="#start">Start</a></li>
-<li><a class="reference internal" href="#stop">Stop</a></li>
+<li><a class="reference internal" href="#">RGB LED</a><ul>
+<li><a class="reference internal" href="#set-colour">Set Colour</a></li>
+<li><a class="reference internal" href="#blink-rgb">Blink RGB</a></li>
+<li><a class="reference internal" href="#timed-rgb">Timed RGB</a></li>
+<li><a class="reference internal" href="#off">Off</a></li>
+<li><a class="reference internal" href="#red">Red</a></li>
+<li><a class="reference internal" href="#green">Green</a></li>
+<li><a class="reference internal" href="#blue">Blue</a></li>
+<li><a class="reference internal" href="#yellow">Yellow</a></li>
+<li><a class="reference internal" href="#orange">Orange</a></li>
+<li><a class="reference internal" href="#white">White</a></li>
+<li><a class="reference internal" href="#check-led-action">Check LED Action</a></li>
 </ul>
 </li>
 </ul>
