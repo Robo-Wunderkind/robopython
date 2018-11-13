@@ -23,8 +23,8 @@ Robo Wunderkind Python API - BLED112 USB Dongle Required
 * Documentation: https://robopython.readthedocs.io.
 
 
-Features
-----------
+Upcoming Features
+-----------------
 
 * New Module integration such as Line Tracker
 * MQTT Wi-Fi networking

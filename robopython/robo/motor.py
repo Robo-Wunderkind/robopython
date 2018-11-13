@@ -46,11 +46,6 @@ class Motor(object):
     def stop(self):
         self.set_pwm(0)
 
-    def set_velocity(self, vel):
-        pass
-
-    def get_encoder(self):
-        pass
 
     def spin_distance(self, vel, distance, wd=89):  # distance < 100 and vel < 300
         assert type(wd) is int, "Wheel Diameter must be an integer in mm"
@@ -76,8 +71,8 @@ class Motor(object):
             return
         print (self.name + " is NOT Connected!")
 
-    def spin_velocity(self, vel, wd=89):
-        self.spin_distance(vel, 65000, wd)
+    def spin_velocity(self, vel):
+        self.spin_distance(vel, 65000)
 
     def action_complete(self, cmd_status):
         self.action_status = cmd_status

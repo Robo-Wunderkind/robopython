@@ -42,16 +42,15 @@ class BLED112(object):
             return adapter
         adapter = BGAPIBackend(serial_port = self.com_port)
         return adapter
-			
+
     def check_os(self):
         if self.os == 'Windows':
             print ("Running on Windows, please ensure your BLED112 dongle is plugged in")
         if self.os == 'Linux':
             print ("Running on Linux, please ensure your BLED112 dongle is plugged in")
         if self.os == 'Darwin':
-			print ("Running on Mac, please ensure your BLED112 dongle is plugged in")
-			
-			
+            print ("Running on Mac, please ensure your BLED112 dongle is plugged in")
+
     def read_from_robo(self):
         if self.connection is not None:
             read_data = self.connection.char_read(self.read_uuid)
@@ -1177,7 +1176,19 @@ class Robo(object):
     def delay(self, delay_time):
         time.sleep(delay_time)
 
-		
+    def sound(self, sound):
+        if sound not in self.System.sounds:
+            print("Sound index does not exist")
+            return
+        self.System.play_sound(sound)
+
+    def battery_level(self):
+        return self.System.get_battery_stats()
+
+    def firmware(self):
+        return self.System.get_firmware_version()
+
+
 if __name__ == '__main__':
     BLE_Name = "RW_a"
     Robo = Robo(BLE_Name)

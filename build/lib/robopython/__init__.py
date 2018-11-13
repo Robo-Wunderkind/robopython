@@ -4,7 +4,7 @@
 
 __author__ = """Jonathan William Morley"""
 __email__ = 'jon@robowunderkind.com'
-__version__ = '0.3.4'
+__version__ = '0.3.5'
 
 from .robopython import BLED112
 from .robopython import Robo

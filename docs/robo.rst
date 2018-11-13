@@ -105,7 +105,7 @@ Drive
 	my_robo.drive(80, 30, 1)
 
 Firmware Version
-#####
+################
 
 | firmware(``self``)
 |
@@ -171,7 +171,7 @@ Set Drive Command
 
 	
 Sound Playback
-####
+##############
 
 | sound(``self``, ``sound``)
 |
