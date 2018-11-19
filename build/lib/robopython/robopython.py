@@ -1090,6 +1090,12 @@ class Robo(object):
             while not self.check_turn_action():
                 time.sleep(0.1)
             return True
+			
+    def turn_inf(self, vel, direction):
+        self.turn(vel, 65000, direction, 0)
+	
+    def drive_inf(self, vel, direction):
+        self.drive(vel, 65000, direction, 0)
 
     def drive(self, vel, distance, direction, wait=1, motors=(1, 2), wd=89):
         motor_cmds = None
@@ -1187,11 +1193,7 @@ class Robo(object):
 
     def firmware(self):
         return self.System.get_firmware_version()
-
-
-if __name__ == '__main__':
-    BLE_Name = "RW_a"
-    Robo = Robo(BLE_Name)
-    while True:
-        pass
-        Robo.delay(0.3)
+		
+    def disconnect_ble(self):
+        self.BLE.stop()
+        

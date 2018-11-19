@@ -125,6 +125,17 @@ White
 
 	Robo.RGB1.white()
 	
+Random Colour
+#############
+
+| random(``self``)
+| 
+| Shows a random colour on the LED
+
+::
+
+	Robo.RGB1.random()
+	
 Check LED Action
 ################
 

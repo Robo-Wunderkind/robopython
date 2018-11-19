@@ -104,6 +104,31 @@ Drive
 
 	my_robo.drive(80, 30, 1)
 
+Drive Forever
+#####	#####
+
+| drive_inf(``self``, ``vel``, ``direction``)
+|
+| ``vel`` is the desired velocity from 0-100%
+| ``direction`` will detirmine forward or backward
+
+::
+
+	my_robo.drive_inf(80, 1)
+
+Turn Forever
+#####	####
+
+| turn_inf(``self``, ``vel``, ``direction``)
+|
+| ``vel`` is the desired velocity from 0-100%
+| ``direction`` will detirmine forward or backward
+
+::
+
+	my_robo.turn_inf(80, 1)	
+
+	
 Firmware Version
 ################
 

@@ -1,3 +1,5 @@
+import random
+
 class RGB(object):
 
     def __init__(self, name, ble, id_num, action_id):
@@ -63,6 +65,9 @@ class RGB(object):
 
     def off(self):
         self.set_rgb(0, 0, 0)
+	
+    def random(self):
+        self.set_rgb(random.randint(0,255), random.randint(0,255), random.randint(0,255))
 
     def timed_rgb(self, red, green, blue, time):
         packet_size = 0x0A

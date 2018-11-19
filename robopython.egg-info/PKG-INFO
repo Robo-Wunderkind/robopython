@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: robopython
-Version: 0.3.5
+Version: 0.3.6
 Summary: Robo Wunderkind Python API - BLED112 USB Dongle Required
 Home-page: https://github.com/JonRobo/robopython
 Author: Jonathan William Morley
@@ -45,6 +45,7 @@ Description: ============
         * Create an instance of Robo object by doing: my_robo = Robo("<BLE Name>")
         
         * Test Functionality by playing a sound with: my_robo.System.play_sound(0)
+        
         
         Troubleshooting
         ------------------
