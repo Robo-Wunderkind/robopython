@@ -13,7 +13,12 @@ robopython
         :target: https://robopython.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-
+Chrome OS 
+Set into Developer Mode
+$ sudo dev_install python
+Install ChromeBrew
+crew install freestyle
+pip install robopython
 
 
 Robo Wunderkind Python API - BLED112 USB Dongle Required

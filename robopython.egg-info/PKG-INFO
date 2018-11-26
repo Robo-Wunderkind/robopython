@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: robopython
-Version: 0.3.6
+Version: 0.3.7
 Summary: Robo Wunderkind Python API - BLED112 USB Dongle Required
 Home-page: https://github.com/JonRobo/robopython
 Author: Jonathan William Morley
@@ -21,7 +21,12 @@ Description: ============
                 :target: https://robopython.readthedocs.io/en/latest/?badge=latest
                 :alt: Documentation Status
         
-        
+        Chrome OS 
+        Set into Developer Mode
+        $ sudo dev_install python
+        Install ChromeBrew
+        crew install freestyle
+        pip install robopython
         
         
         Robo Wunderkind Python API - BLED112 USB Dongle Required

@@ -25,7 +25,7 @@ class Light(object):
                 return
             light_lvl = int(light[-2], 16)*256 + int(light[-3], 16)
             return light_lvl
-        print (self.name + " is NOT Connected!")
+        print(self.name + " is NOT Connected!")
 
     def set_trigger(self, value, comparator):        # comparator 0 = less than 1 = greater than
         packet_size = 0x06

@@ -15,6 +15,7 @@ from robo.meteo import Meteo
 from robo.camera import Camera
 from robo.system import System
 from robo.ir import IR
+from robo.linetracker import LT
 
 
 class BLED112(object):
@@ -846,7 +847,7 @@ class Robo(object):
                             'Motion': 4
                           }
         self.currentBuildBits = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]
+                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]
                                  ]
         # Create max instances of all objects
         self.Motor1 = Motor('Motor1', self.BLE, 1, 1)
@@ -913,6 +914,15 @@ class Robo(object):
 
         self.System = System('System', self.BLE, 52)
 
+        self.LT1 = LT('LT1', self.BLE, 1, 53, 54, 55)
+        self.LT2 = LT('LT2', self.BLE, 1, 56, 57, 58)
+        self.LT3 = LT('LT3', self.BLE, 1, 59, 60, 61)
+        self.LT4 = LT('LT4', self.BLE, 1, 62, 63, 64)
+        self.LT5 = LT('LT5', self.BLE, 1, 65, 66, 67)
+        self.LT6 = LT('LT6', self.BLE, 1, 68, 69, 70)
+        self.LT7 = LT('LT7', self.BLE, 1, 71, 72, 73)
+        self.LT8 = LT('LT8', self.BLE, 1, 74, 75, 76)
+
         self.build_map = [
                             [self.RGB2, self.RGB1, self.Servo2, self.Servo1, self.Motor4,
                              self.Motor3, self.Motor2, self.Motor1],
@@ -925,7 +935,9 @@ class Robo(object):
                             [self.Light2, self.Button4, self.Button3, self.Matrix8,
                              self.Matrix7, self.Matrix6, self.Matrix5, self.Matrix4],
                             [self.Motion4, self.Motion3, self.Motion2, self.Ultrasonic4,
-                             self.Ultrasonic3, self.Ultrasonic2, self.Light4, self.Light3]
+                             self.Ultrasonic3, self.Ultrasonic2, self.Light4, self.Light3],
+                            [self.LT8, self.LT7, self.LT6, self.LT5,
+                             self.LT4, self.LT3, self.LT2, self.LT1]
                         ]
         self.triggers = {'21': self.Button1, '22': self.Button2, '23': self.Button3, '24': self.Button4,
                          '25': self.Ultrasonic1, '26': self.Ultrasonic1, '27': self.Ultrasonic2, '28': self.Ultrasonic2,
@@ -983,9 +995,10 @@ class Robo(object):
 
     def update_build(self, build_data):
         self.build = []
+        print build_data
         if build_data is None:
             return
-        if len(build_data) == 8:
+        if len(build_data) == 9:
             build_data = build_data[2:]
             for idx, byte in enumerate(build_data):
                 byte = bin(int(byte, 16))[2:].zfill(8)
@@ -1005,8 +1018,9 @@ class Robo(object):
         payload_size = 0x01
         command_id = 0x01
         self.BLE.write_to_robo(self.BLE.write_uuid, bytearray([packet_size, payload_size, command_id]))
-        build = hexlify(self.BLE.read_from_robo())							 	        	    # byte array of the build
-        if len(build) == 8:  												# if we have a valid build configuration
+        build = hexlify(self.BLE.read_from_robo())							 	       # byte array of the build
+        print build
+        if len(build) == 9:  												# if we have a valid build configuration
             build = build[2:]
             for idx, byte in enumerate(build):
                 byte = bin(int(byte, 16))[2:].zfill(8)       				# converting from hex to binary string
@@ -1193,7 +1207,7 @@ class Robo(object):
 
     def firmware(self):
         return self.System.get_firmware_version()
-		
+
     def disconnect_ble(self):
         self.BLE.stop()
-        
+
