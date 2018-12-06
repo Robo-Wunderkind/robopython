@@ -45,6 +45,7 @@ Chrome OS
 * Install ChromeBrew: https://skycocker.github.io/chromebrew/
 * crew install freestyle
 * pip install robopython
+* Run python as sudo for robopython to work
 
 
 Troubleshooting
