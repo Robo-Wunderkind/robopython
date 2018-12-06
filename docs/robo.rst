@@ -105,7 +105,7 @@ Drive
 	my_robo.drive(80, 30, 1)
 
 Drive Forever
-#####	#####
+#############
 
 | drive_inf(``self``, ``vel``, ``direction``)
 |
@@ -117,7 +117,7 @@ Drive Forever
 	my_robo.drive_inf(80, 1)
 
 Turn Forever
-#####	####
+############
 
 | turn_inf(``self``, ``vel``, ``direction``)
 |

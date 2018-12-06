@@ -13,13 +13,6 @@ robopython
         :target: https://robopython.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-Chrome OS 
-Set into Developer Mode
-$ sudo dev_install python
-Install ChromeBrew
-crew install freestyle
-pip install robopython
-
 
 Robo Wunderkind Python API - BLED112 USB Dongle Required
 
@@ -39,13 +32,23 @@ Getting Started
 -----------------
 * Install with: pip install robopython
 
-* Create an instance of Robo object by doing: my_robo = Robo("<BLE Name>")
+* Create an instance of Robo object by doing: my_robo = Robo("BLE Name")
 
 * Test Functionality by playing a sound with: my_robo.System.play_sound(0)
+
+Chrome OS
+----------------
+
+* Update to latest Chrome OS
+* Set into Developer Mode
+* $ sudo dev_install python
+* Install ChromeBrew: https://skycocker.github.io/chromebrew/
+* crew install freestyle
+* pip install robopython
 
 
 Troubleshooting
 ------------------
 If you get an error saying No BGAPI compatable device is detected please insert the BLED112 USB dongle or switch USB ports
-If problem persists you can identify the COM port explicitley with my_robo = Robo("<BLE Name>", COM PORT)
+If problem persists you can identify the COM port explicitley with my_robo = Robo("BLE Name", COM PORT)
 

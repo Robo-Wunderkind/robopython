@@ -71,6 +71,7 @@ class BLED112(object):
         if self.connection is not None:
             self.connection.char_write(uuid, data)
             self.WriteOK = 0
+            # count = 0               # added a counter to timeout after waiting
             while self.WriteOK == 0:
                 pass
 
@@ -964,7 +965,15 @@ class Robo(object):
         data = hexlify(value)
         data = [data[i:i + 2] for i in xrange(0, len(data), 2)]
         read_data = data
+
         if read_data[0] not in self.interrupts:
+            return
+
+        if read_data[0] == '01':
+            self.update_build(read_data)
+            return
+        if read_data[0] == '11':
+            self.low_battery = 1
             return
 
         if read_data[0] == 'c0':
@@ -982,10 +991,7 @@ class Robo(object):
             if cmd_id in self.actions:
                 self.actions[cmd_id].action_complete(cmd_status)
                 return
-        if read_data[0] == '01':
-            self.update_build(read_data)
-        if read_data[0] == '11':
-            self.low_battery = 1
+
 
     def get_rssi(self):
         return self.BLE.connection.get_rssi()
@@ -1104,10 +1110,10 @@ class Robo(object):
             while not self.check_turn_action():
                 time.sleep(0.1)
             return True
-			
+
     def turn_inf(self, vel, direction):
         self.turn(vel, 65000, direction, 0)
-	
+
     def drive_inf(self, vel, direction):
         self.drive(vel, 65000, direction, 0)
 
