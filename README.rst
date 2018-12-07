@@ -32,6 +32,8 @@ Getting Started
 -----------------
 * Install with: pip install robopython
 
+* from robopython import Robo
+
 * Create an instance of Robo object by doing: my_robo = Robo("BLE Name")
 
 * Test Functionality by playing a sound with: my_robo.System.play_sound(0)

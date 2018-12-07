@@ -850,6 +850,7 @@ class Robo(object):
         self.currentBuildBits = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
                                  [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]
                                  ]
+		
         # Create max instances of all objects
         self.Motor1 = Motor('Motor1', self.BLE, 1, 1)
         self.Motor2 = Motor('Motor2', self.BLE, 2, 2)
@@ -1001,10 +1002,10 @@ class Robo(object):
 
     def update_build(self, build_data):
         self.build = []
-        print build_data
+        #print build_data
         if build_data is None:
             return
-        if len(build_data) == 9:
+        if len(build_data) == 8 or len(build_data) == 9:
             build_data = build_data[2:]
             for idx, byte in enumerate(build_data):
                 byte = bin(int(byte, 16))[2:].zfill(8)
@@ -1015,7 +1016,7 @@ class Robo(object):
                         self.build_map[idx][idy].is_connected = 1
                     if bit == '0':
                         self.build_map[idx][idy].is_connected = 0
-        # print self.build
+        print(self.build)
         return self.build
 
     def get_build(self):
@@ -1025,8 +1026,7 @@ class Robo(object):
         command_id = 0x01
         self.BLE.write_to_robo(self.BLE.write_uuid, bytearray([packet_size, payload_size, command_id]))
         build = hexlify(self.BLE.read_from_robo())							 	       # byte array of the build
-        print build
-        if len(build) == 9:  												# if we have a valid build configuration
+        if len(build) == 8 or len(build) == 9:  										# if we have a valid build configuration 8 is older fw, 9 is newer
             build = build[2:]
             for idx, byte in enumerate(build):
                 byte = bin(int(byte, 16))[2:].zfill(8)       				# converting from hex to binary string
@@ -1037,6 +1037,7 @@ class Robo(object):
                         self.build_map[idx][idy].is_connected = 1
                     if bit == '0':
                         self.build_map[idx][idy].is_connected = 0
+        print(self.build)
         return self.build
 
     def change_ble_name(self, name):

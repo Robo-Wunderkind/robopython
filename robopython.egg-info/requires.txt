@@ -1,3 +1,4 @@
 Click>=6.0
 pyserial
 enum-compat
+pexpect

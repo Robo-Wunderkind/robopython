@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: robopython
-Version: 0.3.8
+Version: 0.4.1
 Summary: Robo Wunderkind Python API - BLED112 USB Dongle Required
 Home-page: https://github.com/JonRobo/robopython
 Author: Jonathan William Morley
@@ -40,6 +40,8 @@ Description: ============
         -----------------
         * Install with: pip install robopython
         
+        * from robopython import Robo
+        
         * Create an instance of Robo object by doing: my_robo = Robo("BLE Name")
         
         * Test Functionality by playing a sound with: my_robo.System.play_sound(0)
@@ -53,6 +55,7 @@ Description: ============
         * Install ChromeBrew: https://skycocker.github.io/chromebrew/
         * crew install freestyle
         * pip install robopython
+        * Run python as sudo for robopython to work
         
         
         Troubleshooting
@@ -71,7 +74,7 @@ Description: ============
         
         * First release on PyPI.
         
-        0.3.7 (2018-11-26)
+        0.4.0 (2018-12-07)
         ------------------
         
         * Latest release on PyPI.
