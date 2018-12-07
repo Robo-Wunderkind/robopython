@@ -4,6 +4,8 @@ Robo
 
 Create Robo Instance
 
+| from robopython import Robo
+
 | BLE_Name = "Robo1" -- example BLE name
 
 ::
@@ -82,7 +84,7 @@ Display Text
 
 ::
 
-	my_robo.display_text("Welcome to Robo Wundrkind", [my_robo.Matrix1, my_robo.Matrix2, my_robo.Matrix3])
+	my_robo.display_text("Welcome to Robo Wunderkind", [my_robo.Matrix1, my_robo.Matrix2, my_robo.Matrix3])
 	
 Drive
 #####

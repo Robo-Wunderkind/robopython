@@ -6,7 +6,7 @@ RGB LED
 Set Colour
 ##########
 
-| set_colour(``self``, ``red``, ``green``, ``blue``)
+| set_rgb(``self``, ``red``, ``green``, ``blue``)
 | 
 | Sets the RGB to the desired colour using a combination of red, green blue colour intensities 
 |
@@ -16,7 +16,7 @@ Set Colour
 
 ::
 
-	Robo.RGB1.set_colour(120,25,255)
+	Robo.RGB1.set_rgb(120,25,255)
 
 Blink RGB
 #########
