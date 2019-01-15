@@ -16,6 +16,9 @@ robopython
 
 Robo Wunderkind Python API - BLED112 USB Dongle Required
 
+Python 2.x supported
+Python 3.x in development
+
 
 * Free software: Apache Software License 2.0
 * Documentation: https://robopython.readthedocs.io.
