@@ -1,3 +1,5 @@
+from binascii import hexlify
+
 class System(object):
 
     def __init__(self, name, ble, action_id):

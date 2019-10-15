@@ -8,3 +8,4 @@ __version__ = '0.4.1'
 
 from .robopython import BLED112
 from .robopython import Robo
+from .robopython import MQTT
