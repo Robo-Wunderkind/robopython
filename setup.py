@@ -21,7 +21,7 @@ setup(
     author="Jonathan William Morley",
     author_email='jon@robowunderkind.com',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
@@ -46,6 +46,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/JonRobo/robopython',
-    version='0.4.3',
+    version='0.4.5',
     zip_safe=False,
 )

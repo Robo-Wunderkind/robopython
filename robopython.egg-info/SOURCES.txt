@@ -38,6 +38,10 @@ docs/_build/html/_static/plus.png
 docs/_build/html/_static/up-pressed.png
 docs/_build/html/_static/up.png
 robopython/__init__.py
+robopython/ble_robo.py
+robopython/matrix_characters.py
+robopython/mqtt_robo.py
+robopython/notes.py
 robopython/robopython.py
 robopython.egg-info/PKG-INFO
 robopython.egg-info/SOURCES.txt
@@ -65,9 +69,9 @@ robopython/pygatt/backends/gatttool/__init__.py
 robopython/pygatt/backends/gatttool/device.py
 robopython/pygatt/backends/gatttool/gatttool.py
 robopython/robo/__init__.py
+robopython/robo/accelerometer.py
 robopython/robo/button.py
 robopython/robo/camera.py
-robopython/robo/cli.py
 robopython/robo/ir.py
 robopython/robo/light.py
 robopython/robo/linetracker.py

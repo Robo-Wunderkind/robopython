@@ -210,7 +210,12 @@ class Robo(object):
                 return
             if cmd_id in self.actions:
                 cmd_id = int(cmd_id)
-                self.actions[cmd_id].action_complete(cmd_id, cmd_status)
+		if cmd_id == 166 or 167:
+			self.action_complete(cmd_id, cmd_status)
+			return
+		else:
+			self.actions[cmd_id].action_complete(cmd_id, cmd_status) #takes the instance of module that has its action completed 
+																#and signals that the action is done
                 return
 
     def update_build(self, build_data):
@@ -363,7 +368,7 @@ class Robo(object):
         if angle >= self.infinite:
             return
         if wait == 1:
-            while not self.action_complete():
+            while not self.idle():
                 time.sleep(0.1)
             return True
 
@@ -389,12 +394,12 @@ class Robo(object):
         if distance >= self.infinite:
             return
         if wait == 1:
-            while not self.action_complete():
+            while not self.idle():
                 time.sleep(0.1)
             return True
 
     def action_complete(self, id, cmd_status):
-        print "Action completed: ", id
+        #print "Action completed: ", id
         self.idle = True
 
     def stop(self):
