@@ -16,9 +16,11 @@ class Meteo(object):
 
     def connected(self):
         self.is_connected = 1
+        print("Temperature" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("Temperature" + str(self.id) + " disconnected")
 
     def get_temp_c(self):
         pass

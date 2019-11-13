@@ -16,9 +16,11 @@ class IMU(object):
 
     def connected(self):
         self.is_connected = 1
+        print("Accelerometer" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("Acceleromter" + str(self.id) + " disconnected")
 
     def get_accelerations(self, topic=None):                        # we need 2 bytes for this data to go up to 65,000+
         packet_size = 0x03

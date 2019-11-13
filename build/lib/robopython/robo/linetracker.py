@@ -17,36 +17,37 @@ class LT(object):
         self.center = 0
         self.left = 0
         self.right = 0
-        self.pth = 0
-        self.nth = 0
         self.center_status = 0
         self.right_status = 0
         self.left_status = 0
-        self.status = [0, 0, 0]
+
 
     def connected(self):
         self.is_connected = 1
+        print("LineTracker" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("LineTracker" + str(self.id) + " disconnected")
 
     def get_right_value(self):
-        value = get_values()[2]
+        self.get_values()
+        value = self.right
         return value
 
     def get_center_value(self):
-        value = get_values()[1]
+        self.get_values()
+        value = self.center
         return value
 
     def get_left_value(self):
-        value = get_values()[0]
+        self.get_values()
+        value = self.left
         return value
 
-    def get_status_sum(self):
-        sum = 0
-        for s in self.status:
-            sum += s
-        return sum
+    def get_sensor_values(self):
+        self.get_values()
+        return [self.left, self.center, self.right]
 
     def get_values(self):
         packet_size = 0x03
@@ -59,7 +60,7 @@ class LT(object):
                 self.BLE.write_to_robo(self.BLE.write_uuid, command)
                 data = hexlify(self.BLE.read_from_robo())
                 data = [data[i:i + 2] for i in xrange(0, len(data), 2)]
-                if len(data) != 16:
+                if len(data) != 12:
                     return
                 right = int(data[3], 16) * 256 + int(data[2], 16)
                 center = int(data[5], 16) * 256 + int(data[4], 16)
@@ -70,12 +71,6 @@ class LT(object):
                 self.right = right
                 self.center = center
                 index = int(data[8], 16)
-                self.pth = int(data[9], 16) * 256 + int(data[10], 16)
-                self.nth = int(data[11], 16) * 256 + int(data[12], 16)
-                self.left_status = int(data[13], 16)
-                self.center_status = int(data[14], 16)
-                self.right_status = int(data[15], 16)
-                self.status = [self.left_status, self.center_status, self.right_status]
                 return
             if self.protocol == "MQTT":
                 pass

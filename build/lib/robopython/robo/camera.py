@@ -16,8 +16,11 @@ class Camera(object):
 
     def connected(self):
         self.is_connected = 1
+        print("Camera" + str(self.id) + " connected")
+        
     def disconnected(self):
         self.is_connected = 0
+        print("Camera" + str(self.id) + " disconnected")
 
     def start(self):
         pass

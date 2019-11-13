@@ -1,7 +1,7 @@
 class Motor(object):
 
     def __init__(self, name, ble, mqtt, protocol, default_topic, id_num, action_id):
-        self.is_connected = 1
+        self.is_connected = 0
         self.name = name
         self.id = id_num
         self.wheel_diameter = 89
@@ -15,9 +15,11 @@ class Motor(object):
 
     def connected(self):
         self.is_connected = 1
+        print("Motor" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("Motor" + str(self.id) + " disconnected")
 
     def set_pwm(self, pwm, topic=None):   # 0, 128, 255 = 0 --- 127 = 100% CW    129 = 100% CCW
         assert type(pwm) is int, "pwm must be an integer"
@@ -107,7 +109,7 @@ class Motor(object):
     def check_action(self):
         value = self.action_status
         if self.action_status is None:
-            return
+            return False
         self.action_status = None
-        return value
+        return True
 

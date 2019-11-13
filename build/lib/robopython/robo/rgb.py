@@ -1,10 +1,9 @@
 import random
 
-
 class RGB(object):
 
     def __init__(self, name, ble, mqtt, protocol, default_topic, id_num, action_id):
-        self.is_connected = 1
+        self.is_connected = 0
         self.name = name
         self.id = id_num
         self.action_id = action_id
@@ -19,9 +18,11 @@ class RGB(object):
 
     def connected(self):
         self.is_connected = 1
+        print("RGB" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("RGB" + str(self.id) + " disconnected")
 
     def saturate(self, number):
         if number > 255:
@@ -30,7 +31,7 @@ class RGB(object):
             return 0
         return number
 
-    def set_rgb(self, red, green, blue, topic=None):
+    def set(self, red, green, blue, topic=None):
         red = self.saturate(red)
         green = self.saturate(green)
         blue = self.saturate(blue)
@@ -58,7 +59,7 @@ class RGB(object):
                 return
         print(self.name + " is NOT Connected!")
 
-    def blink_rgb(self, red, green, blue, num_blinks, period, topic=None):
+    def blink(self, red, green, blue, num_blinks, period, topic=None):
         red = self.saturate(red)
         green = self.saturate(green)
         blue = self.saturate(blue)
@@ -96,28 +97,28 @@ class RGB(object):
         print(self.name + " is NOT Connected!")
 
     def red(self):
-        self.set_rgb(255, 0, 0)
+        self.set(255, 0, 0)
 
     def green(self):
-        self.set_rgb(0, 255, 0)
+        self.set(0, 255, 0)
 
     def blue(self):
-        self.set_rgb(0, 0, 255)
+        self.set(0, 0, 255)
 
     def yellow(self):
-        self.set_rgb(255, 255, 0)
+        self.set(255, 255, 0)
 
     def orange(self):
-        self.set_rgb(255, 128, 0)
+        self.set(255, 128, 0)
 
     def white(self):
-        self.set_rgb(255, 255, 255)
+        self.set(255, 255, 255)
 
     def off(self):
-        self.set_rgb(0, 0, 0)
+        self.set(0, 0, 0)
 
     def random(self):
-        self.set_rgb(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        self.set(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
     def timed_rgb(self, red, green, blue, time, topic=None):
         packet_size = 0x0A
@@ -149,6 +150,6 @@ class RGB(object):
     def check_action(self):
         value = self.action_status
         if self.action_status is None:
-            return
+            return False
         self.action_status = None
-        return value
+        return True

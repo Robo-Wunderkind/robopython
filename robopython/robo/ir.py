@@ -16,9 +16,11 @@ class IR(object):
 
     def connected(self):
         self.is_connected = 1
+        print("IR" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("IR" + str(self.id) + " disconnected")
 
     def send_ir(self):
         pass

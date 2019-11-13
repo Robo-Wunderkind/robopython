@@ -18,8 +18,8 @@ from robo.system import System
 from robo.accelerometer import IMU
 from robo.ir import IR
 from robo.linetracker import LT
+from robo.display import Display
 from matrix_characters import characters
-
 
 
 class Robo(object):
@@ -29,7 +29,7 @@ class Robo(object):
     def __init__(self, name, mqtt=None, com_port=None):
         self.name = "RW_" + name
         self.MQTT = mqtt
-        self.build = None
+        self.build = []
         self.low_battery = 0
         self.drive_status = None
         self.drive_id = 0xa6
@@ -63,11 +63,12 @@ class Robo(object):
                             'Matrix': 8,
                             'Ultrasonic': 4,
                             'Light': 4,
-                            'Motion': 4
+                            'Motion': 4,
+                            'Display': 4
                           }
         self.currentBuildBits = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
                                  [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-                                 [0, 0, 0, 0, 0, 0, 0, 0]
+                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]
                                  ]
 
         # Create max instances of all objects
@@ -136,29 +137,37 @@ class Robo(object):
         self.System = System('System', self.BLE, self.MQTT, self.protocol, self.default_topic, 52)
 
         self.LT1 = LT('LT1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 53, 54, 55)
-        self.LT2 = LT('LT2', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 56, 57, 58)
-        self.LT3 = LT('LT3', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 59, 60, 61)
-        self.LT4 = LT('LT4', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 62, 63, 64)
+        self.LT2 = LT('LT2', self.BLE, self.MQTT, self.protocol, self.default_topic, 2, 56, 57, 58)
+        self.LT3 = LT('LT3', self.BLE, self.MQTT, self.protocol, self.default_topic, 3, 59, 60, 61)
+        self.LT4 = LT('LT4', self.BLE, self.MQTT, self.protocol, self.default_topic, 4, 62, 63, 64)
+
         self.IMU1 = IMU('IMU1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 65)
-        self.IMU2 = IMU('IMU2', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 66)
-        self.IMU3 = IMU('IMU3', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 67)
-        self.IMU4 = IMU('IMU4', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 68)
+        self.IMU2 = IMU('IMU2', self.BLE, self.MQTT, self.protocol, self.default_topic, 2, 66)
+        self.IMU3 = IMU('IMU3', self.BLE, self.MQTT, self.protocol, self.default_topic, 3, 67)
+        self.IMU4 = IMU('IMU4', self.BLE, self.MQTT, self.protocol, self.default_topic, 4, 68)
+
+        self.Display1 = Display('Display1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 69)
+        self.Display2 = Display('Display2', self.BLE, self.MQTT, self.protocol, self.default_topic, 2, 70)
+        self.Display3 = Display('Display3', self.BLE, self.MQTT, self.protocol, self.default_topic, 3, 71)
+        self.Display4 = Display('Display4', self.BLE, self.MQTT, self.protocol, self.default_topic, 4, 72)
 
         self.build_map = [
-                            [self.RGB2, self.RGB1, self.Servo2, self.Servo1, self.Motor4,
+                            [self.RGB2, self.RGB1, self.Servo2, self.Servo1, self.Motor4,  # Byte 1
                              self.Motor3, self.Motor2, self.Motor1],
-                            [self.System, self.Meteo1, self.Light1, self.Button2,
+                            [self.System, self.Meteo1, self.Light1, self.Button2,          # Byte 2
                              self.Button1, self.Camera1, self.IR1, self.Matrix1],
-                            [self.Servo6, self.Servo5,  self.Servo4, self.Servo3,
+                            [self.Servo6, self.Servo5,  self.Servo4, self.Servo3,          # Byte 3
                              self.Motor6, self.Motor5, self.Motion1, self.Ultrasonic1],
-                            [self.Matrix3, self.Matrix2, self.RGB8, self.RGB7, self.RGB6,
+                            [self.Matrix3, self.Matrix2, self.RGB8, self.RGB7, self.RGB6,  # Byte 4
                              self.RGB5, self.RGB4, self.RGB3],
-                            [self.Light2, self.Button4, self.Button3, self.Matrix8,
+                            [self.Light2, self.Button4, self.Button3, self.Matrix8,        # Byte 5
                              self.Matrix7, self.Matrix6, self.Matrix5, self.Matrix4],
-                            [self.Motion4, self.Motion3, self.Motion2, self.Ultrasonic4,
+                            [self.Motion4, self.Motion3, self.Motion2, self.Ultrasonic4,   # Byte 6
                              self.Ultrasonic3, self.Ultrasonic2, self.Light4, self.Light3],
-                            [self.IMU4, self.IMU3, self.IMU2, self.IMU1,
-                             self.LT4, self.LT3, self.LT2, self.LT1]
+                            [self.IMU4, self.IMU3, self.IMU2, self.IMU1,                   # Byte 7
+                             self.LT4, self.LT3, self.LT2, self.LT1],
+                            [None, None, None, None,                                       # Byte 8
+                             self.Display4, self.Display3, self.Display2, self.Display1]
                         ]
         self.triggers = {'21': self.Button1, '22': self.Button2, '23': self.Button3, '24': self.Button4,
                          '25': self.Ultrasonic1, '26': self.Ultrasonic1, '27': self.Ultrasonic2, '28': self.Ultrasonic2,
@@ -173,7 +182,8 @@ class Robo(object):
                         '16': self.RGB4, '17': self.RGB5, '18': self.RGB6, '19': self.RGB7, '20': self.RGB8,
                         '41': self.Matrix1, '42': self.Matrix2, '43': self.Matrix3, '44': self.Matrix4,
                         '45': self.Matrix5, '46': self.Matrix6, '47': self.Matrix7, '48': self.Matrix8,
-                        '52': self.System, '166': self, '167': self # drive and turn ids
+                        '52': self.System, '69': self.Display1, '70': self.Display2, '71': self.Display3, '72': self.Display4,
+                        '166': self, '167': self # drive and turn ids
                         }
 
         self.get_build()
@@ -182,8 +192,7 @@ class Robo(object):
     def reset_build_map(self):
         for byte in self.build_map:
             for module in byte:
-                pass
-                #module.disconnected()
+                module.disconnected()
 
     def handle_rx_data(self, handle, value):
         data = hexlify(value)
@@ -191,10 +200,10 @@ class Robo(object):
         read_data = data
 
         if read_data[0] not in self.interrupts:
+            #print read_data
             return
 
         if read_data[0] == '01':
-            print(read_data)
             self.update_build(read_data)
             return
         if read_data[0] == '11':
@@ -204,19 +213,23 @@ class Robo(object):
         if read_data[0] == 'c0':
             cmd_id = str(int(read_data[-2], 16))
             cmd_status = int(read_data[-1], 16)
+            #print cmd_id
             if cmd_id in self.triggers:
                 cmd_id = int(cmd_id)
-                self.triggers[cmd_id].triggered(cmd_id, cmd_status)
+                self.triggers[str(cmd_id)].triggered(cmd_id, cmd_status)
                 return
             if cmd_id in self.actions:
                 cmd_id = int(cmd_id)
-                self.actions[cmd_id].action_complete(cmd_id, cmd_status)
+                self.actions[str(cmd_id)].action_complete(cmd_id, cmd_status)
+		if cmd_id == 166 or 167:
+			self.action_complete(cmd_id, cmd_status)
+			return
+		else:
+			self.actions[cmd_id].action_complete(cmd_id, cmd_status) #takes the instance of module that has its action completed 
+																     #and signals that the action is done
                 return
 
     def update_build(self, build_data):
-        self.build = []
-        self.reset_build_map()
-        print("Build to start is: ", self.build)
         if build_data is None:
             return
         build_data = build_data[2:]
@@ -228,13 +241,15 @@ class Robo(object):
                     name = self.build_map[idx][idy].name
                     if name not in self.build:
                         self.build.append(name)
-                        #self.build_map[idx][idy].connected()
-        print(self.build)
+                        self.build_map[idx][idy].connected()
+                elif bit == '0':
+                    name = self.build_map[idx][idy].name
+                    if name in self.build:
+                        self.build.remove(name)
+                        self.build_map[idx][idy].disconnected()
         return self.build
 
     def get_build(self):
-        self.build = []
-        self.reset_build_map()
         if self.protocol is not None:
             packet_size = 0x02
             payload_size = 0x01
@@ -252,12 +267,15 @@ class Robo(object):
                                 name = self.build_map[idx][idy].name
                                 if name not in self.build:
                                     self.build.append(name)
-                                    #self.build_map[idx][idy].connected()
-                print(self.build)
+                                    self.build_map[idx][idy].connected()
+                            elif bit == '0':
+                                name = self.build_map[idx][idy].name
+                                if name in self.build:
+                                    self.build.remove(name)
+                                    self.build_map[idx][idy].disconnected()
                 return self.build
 
             if self.protocol == "MQTT":
-                print("Build to start is: ", self.build)
                 command = self.MQTT.get_mqtt_cmd([payload_size, command_id])
                 self.MQTT.publish(self.default_topic, command)
                 build = self.MQTT.message
@@ -267,7 +285,6 @@ class Robo(object):
                 if build[0] != '01':
                     return
                 build = build[2:]
-                print build
                 for idx, byte in enumerate(build):
                     byte = bin(int(byte, 16))[2:].zfill(8)  # converting from hex to binary string
                     for idy, bit in enumerate(byte):
@@ -276,8 +293,12 @@ class Robo(object):
                             name = self.build_map[idx][idy].name
                             if name not in self.build:
                                 self.build.append(name)
-                                #self.build_map[idx][idy].connected()
-                print(self.build)
+                                self.build_map[idx][idy].connected()
+                        elif bit == '0':
+                            name = self.build_map[idx][idy].name
+                            if name in self.build:
+                                self.build.remove(name)
+                                self.build_map[idx][idy].disconnected()
                 return self.build
 
     def change_ble_name(self, name):
@@ -363,7 +384,7 @@ class Robo(object):
         if angle >= self.infinite:
             return
         if wait == 1:
-            while not self.action_complete():
+            while not self.idle():
                 time.sleep(0.1)
             return True
 
@@ -389,12 +410,12 @@ class Robo(object):
         if distance >= self.infinite:
             return
         if wait == 1:
-            while not self.action_complete():
+            while not self.idle():
                 time.sleep(0.1)
             return True
 
     def action_complete(self, id, cmd_status):
-        print "Action completed: ", id
+        #print "Action completed: ", id
         self.idle = True
 
     def stop(self):
@@ -464,7 +485,7 @@ class Robo(object):
     def play_custom_tune(self, tempo):
         self.System.play_custom_tune(tempo)
 
-    def upload_tune(self, tune, tempo):
+    def upload_tune(self, tune, tempo):  # still in development
 
         max_payload = 16
         index = 0

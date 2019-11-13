@@ -1,3 +1,5 @@
+from binascii import hexlify
+
 class System(object):
 
     def __init__(self, name, ble, mqtt, protocol, default_topic, action_id):
@@ -209,6 +211,6 @@ class System(object):
     def check_action(self):
         value = self.action_status
         if self.action_status is None:
-            return
+            return False
         self.action_status = None
-        return value
+        return True

@@ -4,7 +4,7 @@ from binascii import hexlify
 class Button(object):
 
     def __init__(self, name, ble, mqtt, protocol, default_topic, id_num, trigger_id):
-        self.is_connected = 1
+        self.is_connected = 0
         self.name = name
         self.id = id_num
         self.trigger_id = trigger_id
@@ -16,9 +16,11 @@ class Button(object):
 
     def connected(self):
         self.is_connected = 1
+        print("Button" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("Button" + str(self.id) + " disconnected")
 
     def get_state(self, topic=None):
         packet_size = 0x03
@@ -56,7 +58,7 @@ class Button(object):
 
         print(self.name + " is NOT Connected!")
 
-    def set_trigger(self, condition, topic=None):  # condition +ve number of clicks 0 is pressed -1 is released
+    def set_trigger(self, condition, topic=None):  # condition +ve number of clicks,  0 = pressed, -1 = released
         packet_size = 0x05
         command_id = 0xB1
         payload_size = 0x03
@@ -83,7 +85,7 @@ class Button(object):
     def check_trigger(self):
         value = self.trigger_status
         if value is None:
-            return
+            return False
         self.trigger_status = None
         print "Button triggered"
-        return value
+        return True

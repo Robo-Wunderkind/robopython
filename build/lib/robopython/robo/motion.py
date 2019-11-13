@@ -16,9 +16,11 @@ class Motion(object):
 
     def connected(self):
         self.is_connected = 1
+        print("Motion" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("Motion" + str(self.id) + " disconnected")
 
     def get_motion(self, topic=None):
         packet_size = 0x03
@@ -83,6 +85,6 @@ class Motion(object):
     def check_trigger(self):
         value = self.trigger_status
         if value is None:
-            return
+            return False
         self.trigger_status = None
-        return value
+        return True

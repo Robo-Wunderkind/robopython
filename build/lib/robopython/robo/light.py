@@ -16,9 +16,11 @@ class Light(object):
 
     def connected(self):
         self.is_connected = 1
+        print("Light" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("Light" + str(self.id) + " disconnected")
 
     def get_light(self, topic=None):                        # we need 2 bytes for this data to go up to 65,000+
         packet_size = 0x03
@@ -78,6 +80,6 @@ class Light(object):
     def check_trigger(self):
         value = self.trigger_status
         if value is None:
-            return
+            return False
         self.trigger_status = None
-        return value
+        return True

@@ -11,7 +11,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', 'pyserial', 'enum-compat', 'pexpect']
+requirements = ['Click>=6.0', 'pyserial', 'enum-compat', 'pexpect', 'paho-mqtt']
 
 setup_requirements = [ ]
 
@@ -46,6 +46,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/JonRobo/robopython',
-    version='0.4.5',
+    version='0.4.7',
     zip_safe=False,
 )

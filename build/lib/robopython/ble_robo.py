@@ -7,10 +7,10 @@ from pygatt.backends.bgapi.bgapi import BGAPIBackend
 class BLED112(object):
 
     def __init__(self, name, com_port=None):
-        self.read_uuid = 'aa000000-77f1-415f-9c9e-8a22a7f02242'
-        self.read_uuid_flag = 'aa000003-77f1-415f-9c9e-8a22a7f02242'
-        self.write_uuid = 'aa000002-77f1-415f-9c9e-8a22a7f02242'
-        self.write_uuid_flag = 'aa000001-77f1-415f-9c9e-8a22a7f02242'
+        self.read_uuid = 'aa000000-77f1-415f-9c9e-8a22a7f02242'       # C01
+        self.read_uuid_flag = 'aa000003-77f1-415f-9c9e-8a22a7f02242'  # C04
+        self.write_uuid = 'aa000002-77f1-415f-9c9e-8a22a7f02242'      # C03
+        self.write_uuid_flag = 'aa000001-77f1-415f-9c9e-8a22a7f02242' # C02
         self.WriteOK = 0
         self.ReadDone = 0
         self.read_data = None
@@ -94,7 +94,6 @@ class BLED112(object):
                 devices[idx]['name'] = filtered_name
         self.Devices = devices
         return self.Devices
-        # print self.Devices
 
     def handle_rx_flag(self, handle, value):
         """

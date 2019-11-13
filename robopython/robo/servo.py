@@ -13,23 +13,28 @@ class Servo(object):
 
     def connected(self):
         self.is_connected = 1
+        print("Servo" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("Servo" + str(self.id) + " disconnected")
 
     def set_angle(self, angle, topic=None):
         assert type(angle) is int, "Angle must be an integer"
-        packet_size = 0x04
-        command_id = 0x51
-        payload_size = 0x02
+        packet_size = 0x06
+        command_id = 0xA1
+        payload_size = 0x04
         module_id = self.id-1
-        command = bytearray([packet_size, command_id, payload_size, module_id, angle])
+        angleH = angle / 256
+        angleL = angle % 256
+
+        command = bytearray([packet_size, command_id, payload_size, self.action_id, module_id, angleH, angleL])
 
         if topic is None:
             topic = self.default_topic
 
-        if angle < 0 or angle > 255:
-            print("Angle must be between 0-255")
+        if angle < 0 or angle > 355:
+            print("Angle must be between 0-355")
             return
 
         if self.is_connected == 1:
@@ -51,7 +56,7 @@ class Servo(object):
     def check_action(self):
         value = self.action_status
         if self.action_status is None:
-            return
+            return False
         self.action_status = None
-        return value
+        return True
 

@@ -4,7 +4,7 @@ from binascii import hexlify
 class Ultrasonic(object):
 
     def __init__(self, name, ble, mqtt, protocol, default_topic, id_num, u_trigger_id, s_trigger_id):
-        self.is_connected = 1
+        self.is_connected = 0
         self.name = name
         self.id = id_num
         self.u_trigger_id = u_trigger_id
@@ -18,9 +18,11 @@ class Ultrasonic(object):
 
     def connected(self):
         self.is_connected = 1
+        print("Ultrasonic" + str(self.id) + " connected")
         
     def disconnected(self):
         self.is_connected = 0
+        print("Ultrasonic" + str(self.id) + " disconnected")
 
     def get_distance(self, topic=None):
         packet_size = 0x03
@@ -52,7 +54,7 @@ class Ultrasonic(object):
                 return distance
         print(self.name + " is NOT Connected!")
 
-    def get_sound_level(self, topic=None):
+    def get_sound(self, topic=None):
         packet_size = 0x03
         command_id = 0x81
         payload_size = 0x01
@@ -120,16 +122,16 @@ class Ultrasonic(object):
     def check_sound_trigger(self):
         value = self.s_trigger_status
         if value is None:
-            return
+            return False
         self.s_trigger_status = None
-        return value
+        return True
 
     def check_ultrasonic_trigger(self):
         value = self.u_trigger_status
         if value is None:
-            return
+            return False
         self.u_trigger_status = None
-        return value
+        return True
 
     def triggered(self, cmd_id, cmd_status):
         if cmd_id == self.u_trigger_id:
