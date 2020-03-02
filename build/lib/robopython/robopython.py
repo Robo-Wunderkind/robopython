@@ -49,7 +49,7 @@ class Robo(object):
         if self.MQTT is not None:
             self.protocol = "MQTT"
             mqtt.subscribe(self.receive_topic)
-            mqtt.add_robo(self.name, self)
+            mqtt.add_robo(self.name[3:], self)
             
         if self.protocol is None:
             raise Exception('BLE Nor MQTT is Selected, Exiting')
@@ -136,10 +136,10 @@ class Robo(object):
 
         self.System = System('System', self.BLE, self.MQTT, self.protocol, self.default_topic, 52)
 
-        self.LT1 = LT('LT1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 53, 54, 55)
-        self.LT2 = LT('LT2', self.BLE, self.MQTT, self.protocol, self.default_topic, 2, 56, 57, 58)
-        self.LT3 = LT('LT3', self.BLE, self.MQTT, self.protocol, self.default_topic, 3, 59, 60, 61)
-        self.LT4 = LT('LT4', self.BLE, self.MQTT, self.protocol, self.default_topic, 4, 62, 63, 64)
+        self.LT1 = LT('LT1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 73, 53, 54, 55)
+        self.LT2 = LT('LT2', self.BLE, self.MQTT, self.protocol, self.default_topic, 2, 74, 56, 57, 58)
+        self.LT3 = LT('LT3', self.BLE, self.MQTT, self.protocol, self.default_topic, 3, 75, 59, 60, 61)
+        self.LT4 = LT('LT4', self.BLE, self.MQTT, self.protocol, self.default_topic, 4, 76, 62, 63, 64)
 
         self.IMU1 = IMU('IMU1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 65)
         self.IMU2 = IMU('IMU2', self.BLE, self.MQTT, self.protocol, self.default_topic, 2, 66)
@@ -183,7 +183,7 @@ class Robo(object):
                         '41': self.Matrix1, '42': self.Matrix2, '43': self.Matrix3, '44': self.Matrix4,
                         '45': self.Matrix5, '46': self.Matrix6, '47': self.Matrix7, '48': self.Matrix8,
                         '52': self.System, '69': self.Display1, '70': self.Display2, '71': self.Display3, '72': self.Display4,
-                        '166': self, '167': self # drive and turn ids
+                        '73': self.LT1, '74': self.LT2, '75': self.LT3, '76': self.LT4, '166': self, '167': self # drive and turn ids
                         }
 
         self.get_build()
@@ -237,16 +237,17 @@ class Robo(object):
             byte = bin(int(byte, 16))[2:].zfill(8)  # converting from hex to binary string
             for idy, bit in enumerate(byte):
                 self.currentBuildBits[idx][idy] = bit
-                if bit == '1':
+                if bit == '1' and self.build_map[idx][idy] is not None:
                     name = self.build_map[idx][idy].name
                     if name not in self.build:
                         self.build.append(name)
                         self.build_map[idx][idy].connected()
-                elif bit == '0':
+                elif bit == '0' and self.build_map[idx][idy] is not None:
                     name = self.build_map[idx][idy].name
-                    if name in self.build:
+                    if name in self.build and name is not None:
                         self.build.remove(name)
                         self.build_map[idx][idy].disconnected()
+        #print self.build
         return self.build
 
     def get_build(self):
@@ -257,22 +258,26 @@ class Robo(object):
             if self.protocol == "BLE":
                 self.BLE.write_to_robo(self.BLE.write_uuid, bytearray([packet_size, payload_size, command_id]))
                 build = hexlify(self.BLE.read_from_robo())  # byte array of the build
-                if len(build) == 8 or len(build) == 9:
-                    build = build[2:]
-                    for idx, byte in enumerate(build):
-                        byte = bin(int(byte, 16))[2:].zfill(8)  # converting from hex to binary string
-                        for idy, bit in enumerate(byte):
-                            self.currentBuildBits[idx][idy] = bit
-                            if bit == '1':
-                                name = self.build_map[idx][idy].name
-                                if name not in self.build:
-                                    self.build.append(name)
-                                    self.build_map[idx][idy].connected()
-                            elif bit == '0':
-                                name = self.build_map[idx][idy].name
-                                if name in self.build:
-                                    self.build.remove(name)
-                                    self.build_map[idx][idy].disconnected()
+                if build is None:
+                    return
+                build = [build[i:i + 2] for i in xrange(0, len(build), 2)]
+                if build[0] != '01':
+                    return
+                build = build[2:]
+                for idx, byte in enumerate(build):
+                    byte = bin(int(byte, 16))[2:].zfill(8)  # converting from hex to binary string
+                    for idy, bit in enumerate(byte):
+                        self.currentBuildBits[idx][idy] = bit
+                        if bit == '1' and self.build_map[idx][idy] is not None:
+                            name = self.build_map[idx][idy].name
+                            if name not in self.build:
+                                self.build.append(name)
+                                self.build_map[idx][idy].connected()
+                        elif bit == '0' and self.build_map[idx][idy] is not None:
+                            name = self.build_map[idx][idy].name
+                            if name in self.build and name is not None:
+                                self.build.remove(name)
+                                self.build_map[idx][idy].disconnected()
                 return self.build
 
             if self.protocol == "MQTT":
@@ -289,14 +294,14 @@ class Robo(object):
                     byte = bin(int(byte, 16))[2:].zfill(8)  # converting from hex to binary string
                     for idy, bit in enumerate(byte):
                         self.currentBuildBits[idx][idy] = bit
-                        if bit == '1':
+                        if bit == '1' and self.build_map[idx][idy] is not None:
                             name = self.build_map[idx][idy].name
                             if name not in self.build:
                                 self.build.append(name)
                                 self.build_map[idx][idy].connected()
-                        elif bit == '0':
+                        elif bit == '0' and self.build_map[idx][idy] is not None:
                             name = self.build_map[idx][idy].name
-                            if name in self.build:
+                            if name in self.build and name is not None:
                                 self.build.remove(name)
                                 self.build_map[idx][idy].disconnected()
                 return self.build
@@ -352,8 +357,6 @@ class Robo(object):
         
         if vel < 0:
             vel = 0
-        if vel > self.Motor1.max_velocity:
-            vel = self.Motor1.max_velocity
 
         vel_h = vel / 256
         vel_l = vel % 256
@@ -368,7 +371,7 @@ class Robo(object):
             return
         if self.protocol == "MQTT":
             command = self.MQTT.get_mqtt_cmd([command_id, payload_size, action_id, motors, directions,
-                                              vel_h, vel_l, wd_h, wd_l, distance_h, distance_l])
+                            vel_h, vel_l, wd_h, wd_l, distance_h, distance_l])
             self.MQTT.publish(topic, command)
 
     def turn(self, vel, angle, direction, topic=None, wait=0, motors=(1, 2), wd=89, turning_radius=91):
@@ -428,15 +431,16 @@ class Robo(object):
         command_id = 0x30
         payload_size = 0x02
         off = 0x00
-        command = bytearray([packet_size, command_id, payload_size, off])
 
         if topic is None:
             topic = self.default_topic
 
         if self.protocol == "BLE":
-            self.BLE.write_to_robo(self.BLE.write_uuid, command)
+            command = [packet_size, command_id, payload_size, off]
+            self.BLE.write_to_robo(self.BLE.write_uuid, bytearray(command))
         if self.protocol == "MQTT":
-            command = self.MQTT.get_mqtt_command([command_id, payload_size, off])
+            command = [command_id, payload_size, off]
+            command = self.MQTT.get_mqtt_cmd(command)
             self.MQTT.publish(topic, command)
 
         for rgb in self.RGBs:
@@ -479,25 +483,31 @@ class Robo(object):
             return
         self.System.play_sound(sound)
 
-    def play_tune(self, tune):
-        self.System.set_tune(tune)
+    def play_tune(self, tune, tempo):
+        self.System.set_tune(tune, tempo)
 
     def play_custom_tune(self, tempo):
         self.System.play_custom_tune(tempo)
 
-    def upload_tune(self, tune, tempo):  # still in development
+    def chunkify(self, lst, n):
+        """Yield successive n-sized chunks from lst."""
+        chunked_list = []
+        for i in xrange(0, len(lst), n):
+            chunked_list.append(lst[i:i + n])
+        return chunked_list
 
-        max_payload = 16
+    def upload_tune(self, tune, tempo):  # still in development
         index = 0
-        tune_chunk = []
-        print(tune)
+        tune_bytes = []
         for idx, note in enumerate(tune):
             beat = note[1] 
             byte = (note[0] << 4) + beat # combine note and beat data
-            tune_chunk.append(byte)
-        print(tune_chunk)
-        if len(tune_chunk) != 0:
-            self.System.upload_custom_tune(tune_chunk, index)
+            tune_bytes.append(byte)
+        tune = self.chunkify(tune_bytes, self.BLE.MAX_PAYLOAD)
+        for chunk in tune:
+            length = len(chunk)
+            self.System.upload_custom_tune(chunk, index)
+            index+=length
         self.play_custom_tune(tempo)
 
     def play_note(self, note, beat = 0x0f, tempo = 0):
@@ -515,3 +525,117 @@ class Robo(object):
     def disconnect_ble(self):
         self.BLE.stop()
 
+    def set_auto_mqtt(self, state, topic = None):
+        if state != 0 and state != 1:
+            print("Must be either on or off 0 or 1")
+            return
+        packet_size = 0x04
+        command_id = 0x0B
+        payload_size = 0x02
+        command = [packet_size, command_id, payload_size, state]
+
+        if topic is None:
+            topic = self.default_topic
+
+        if self.protocol == "BLE":
+            command = bytearray(command)
+            self.BLE.write_to_robo(self.BLE.write_uuid, command)
+        if self.protocol == "MQTT":
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, off])
+            self.MQTT.publish(topic, command)
+
+    def connect_mqtt(self):
+        packet_size = 0x03
+        command_id = 0x0A
+        payload_size = 0x01
+        command = [packet_size, command_id, payload_size]
+
+        if self.protocol == "BLE":
+            command = bytearray(command)
+            self.BLE.write_to_robo(self.BLE.write_uuid, command)
+        
+    def disconnect_mqtt(self):
+        packet_size = 0x03
+        command_id = 0x0C
+        payload_size = 0x01
+        command = [packet_size, command_id, payload_size]
+
+        if self.protocol == "BLE":
+            command = bytearray(command)
+            self.BLE.write_to_robo(self.BLE.write_uuid, command)
+
+    def set_wifi_ssid(self, ssid, topic = None):# finishe these and fully test the NVS code
+        length = len(ssid)
+        if length > 17:
+            print "ssid is too long"
+            return
+        packet_size = length+2
+        command_id = 0x45
+        payload_size = length
+        command = [packet_size, command_id, payload_size]
+
+        if topic is None:
+            topic = self.default_topic
+
+        if self.protocol == "BLE":
+            command = bytearray(command)
+            self.BLE.write_to_robo(self.BLE.write_uuid, command)
+        if self.protocol == "MQTT":
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, off])
+            self.MQTT.publish(topic, command)
+
+    def set_wifi_psk(self, password, topic = None):
+        length = len(password)
+        if length > 17:
+            print "password is too long"
+            return
+        packet_size = length+2
+        command_id = 0x46
+        payload_size = length
+        command = [packet_size, command_id, payload_size]
+
+        for char in broker:
+            command.append(ord(char))
+
+        if topic is None:
+            topic = self.default_topic
+
+        if self.protocol == "BLE":
+            command = bytearray(command)
+            self.BLE.write_to_robo(self.BLE.write_uuid, command)
+        if self.protocol == "MQTT":
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, off])
+            self.MQTT.publish(topic, command)
+
+    def set_broker(self, broker, topic = None):
+        length = len(broker)
+        if length > 15:
+            print "ip address is too long"
+            return
+        packet_size = length+2
+        command_id = 0x4A
+        payload_size = length
+        command = [packet_size, command_id, payload_size]
+
+        for char in broker:
+            command.append(ord(char))
+
+        if topic is None:
+            topic = self.default_topic
+
+        if self.protocol == "BLE":
+            command = bytearray(command)
+            self.BLE.write_to_robo(self.BLE.write_uuid, command)
+        if self.protocol == "MQTT":
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, off])
+            self.MQTT.publish(topic, command)
+
+    def OTA(self):
+        packet_size = 0x04
+        command_id = 0x03
+        payload_size = 0x02
+        command = [packet_size, command_id, payload_size, 0x01, 0x00]
+
+        if self.protocol == "BLE":
+            command = bytearray(command)
+            self.BLE.write_to_robo(self.BLE.write_uuid, command)

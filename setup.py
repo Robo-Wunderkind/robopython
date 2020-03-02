@@ -46,6 +46,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/JonRobo/robopython',
-    version='0.4.7',
+    version='0.4.9',
     zip_safe=False,
 )

@@ -46,49 +46,49 @@ class MQTT(object):
 
     def add_robo(self, robo_name, robo_inst):
         self.robo_dict[robo_name] = robo_inst
-        print self.robo_dict
+        print("Added Robo - " + robo_name)
 
     def remove_robo(self, robo_name, robo_inst):
-        pass
+        del self.robo_dict[robo_inst]
+        print("Removed Robo - " + robo_name)
+
+    def get_robo_name(self):
+        name = None 
+        indeces = [i for i, ltr in enumerate(self.topic) if ltr == '/']
+        if len(indeces) == 2:
+            name = self.topic[indeces[0]+1:indeces[1]]
+            return name
+        return None
 
     def on_message(self, client, userdata, message):
         self.message = str(message.payload)
         self.topic = str(message.topic)
-        print("message received ", self.message)
-        print("message topic=", self.topic)
-        print("message qos=", message.qos)
-        print("message retain flag=", message.retain)
-
+        print("message received " + self.message)
+        print("message topic = " + self.topic)
+        #print("message qos = " + str(message.qos))
+        #print("message retain flag = " + str(message.retain))
         if self.topic is not None:
             self.roboName = self.get_robo_name()
-            robo = self.robo_dict[self.roboName]
-
-            if self.message is not None and self.roboName is not None:
+            if self.roboName in self.robo_dict:
                 msg = [self.message[i:i + 2] for i in xrange(0, len(self.message), 2)]
                 cmd = msg[0]
+                print(msg)
+                robo = self.robo_dict[self.roboName]
                 if cmd == self.build_cmd:
                     build_data = msg
-                    build_data = build_data[2:]
                     print("Updating Build of: " + self.roboName)
-                    self.robo_dict[self.roboName].update_build(build_data)
+                    robo.update_build(build_data)
                     return
                 if cmd == self.event_cmd:
                     event_id = str(int(msg[2], 16))
                     result = int(msg[3], 16)
                     if event_id in robo.triggers:
-                        event_id = int(event_id)
-                        robo.triggers[event_id].triggered(event_id, result)
+                        robo.triggers[event_id].triggered(int(event_id), result)
                         return
-                    if event_id in robo.actions:
-                        robo.actions[event_id].action_complete(event_id, result)
+                    elif event_id in robo.actions:
+                        robo.actions[event_id].action_complete(int(event_id), result)
                         return
                     return
-
-    def get_robo_name(self):
-        indeces = [i for i, ltr in enumerate(self.topic) if ltr == '/']
-        if len(indeces) == 2:
-            return self.topic[indeces[0]+1:indeces[1]]
-
 
     def connect(self):
         if self.broker_address is None:
@@ -105,7 +105,7 @@ class MQTT(object):
         self.client.loop_stop()  # stop the loop
         self.client.loop_start()  # start the loop
         #self.client.loop_forever()
-        print("Succeeded to connect ", self.MQTT_Connected)
+        print("MQTT Connection Status - " + str(self.MQTT_Connected))
         return True
 
     def disconnect(self):

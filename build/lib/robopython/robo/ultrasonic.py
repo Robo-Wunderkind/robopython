@@ -50,8 +50,10 @@ class Ultrasonic(object):
                 if distance is None:
                     return 0
                 distance = [distance[i:i + 2] for i in xrange(0, len(distance), 2)]
-                distance = int(distance[2], 16)
-                return distance
+                if len(distance) != 7:
+                    return
+                distance_cm = int(distance[2], 16) + int(distance[3], 16)*256
+                return distance_cm
         print(self.name + " is NOT Connected!")
 
     def get_sound(self, topic=None):

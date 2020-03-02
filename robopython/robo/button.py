@@ -87,5 +87,5 @@ class Button(object):
         if value is None:
             return False
         self.trigger_status = None
-        print "Button triggered"
-        return True
+        print "Button triggered!"
+        return value

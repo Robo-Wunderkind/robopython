@@ -3,13 +3,15 @@ from binascii import hexlify
 
 class LT(object):
 
-    def __init__(self, name, ble, mqtt, protocol, default_topic, id_num, l_trigger_id, c_trigger_id, r_trigger_id):
+    def __init__(self, name, ble, mqtt, protocol, default_topic, id_num, action_id, l_trigger_id, c_trigger_id, r_trigger_id):
         self.is_connected = 0
         self.name = name
         self.id = id_num
         self.l_trigger_id = l_trigger_id
         self.c_trigger_id = c_trigger_id
         self.r_trigger_id = r_trigger_id
+        self.action_id = action_id
+        self.action_status = None
         self.BLE = ble
         self.MQTT = mqtt
         self.protocol = protocol
@@ -88,20 +90,38 @@ class LT(object):
             return
         print(self.name + " is NOT Connected!")
 
-    def track(self, on_off, direction, speed, wd = 89, motors = 3):
-        packet_size = 0x03
-        command_id = 0x88
-        payload_size = 0x01
+    def track(self, direction, speed, wd = 89, motors = 3):
+        if speed > 100:
+            print("Speed must be 0-100%")
+            return
+
+        packet_size = 0x09
+        command_id = 0xa9
+        payload_size = 0x07
         module_id = self.id - 1
-        wd_h = wd / 256
-        wd_l = wd % 256
-        speed_h = speed / 256
-        speed_l = speed % 256
-        #command = bytearray([packet_size, command_id, payload_size, on_off, module_id,
-         #                    motors, direction, speed_h, speed_l, wd_h, wd_l])
-        command = bytearray([packet_size, command_id, payload_size, on_off])
 
         if self.is_connected == 1:
-            self.BLE.write_to_robo(self.BLE.write_uuid, command)
-            return
+            if self.protocol == "BLE": 
+                command = [packet_size, command_id, payload_size, self.action_id, module_id,
+                             motors, direction, speed, 9, 25]
+                self.BLE.write_to_robo(self.BLE.write_uuid, bytearray(command))
+                return
+            if self.protocol == "MQTT":
+                command = [command_id, payload_size, self.action_id, module_id,
+                             motors, direction, speed, 9, 25]
+                command = self.MQTT.get_mqtt_cmd(command)
+                self.MQTT.publish(self.default_topic, command)
+                print command
+                return
         print(self.name + " is NOT Connected!")
+
+    def action_complete(self, id, cmd_status):
+        self.action_status = cmd_status
+        print("Line Tracking Done!")
+
+    def check_action(self):
+        value = self.action_status
+        if self.action_status is None:
+            return False
+        self.action_status = None
+        return True

@@ -129,30 +129,25 @@ class System(object):
             return
 
     def set_tune(self, tune, tempo, topic=None):
-        packet_size = 0x04
+        packet_size = 0x05
         command_id = 0x92
-        payload_size = 0x02
+        payload_size = 0x03
 
         if topic is None:
             topic = self.default_topic
 
         if self.protocol == "BLE":
-            self.BLE.write_to_robo(self.BLE.write_uuid, bytearray([packet_size, command_id, payload_size, tune, tempo]))
+            self.BLE.write_to_robo(self.BLE.write_uuid, bytearray([packet_size, command_id, payload_size, tune, tempo, self.action_id]))
             return
         if self.protocol == "MQTT":
-            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, tune, tempo])
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, tune, tempo, self.action_id])
             self.MQTT.publish(topic, command)
             return
 
     # tunes is a list of tuples (Note, Beat_Length) 4 bits each, must combine them into 1 byte to save space
     # TODO test with a single upload, then multiple and build a top level function that manages uploading a tune of any length
-    def upload_custom_tune(self, tune, index, topic=None): 
-        length = len(tune)
-        MAX_TUNE_SIZE = 240
-
-        if length > MAX_TUNE_SIZE:
-            print("The length of this tune is larger than the limit of: " + str(MAX_TUNE_SIZE) + " notes")
-            return
+    def upload_custom_tune(self, tune_chunk, index, topic=None): 
+        length = len(tune_chunk)
 
         packet_size = length+3
         command_id = 0x93
@@ -160,17 +155,20 @@ class System(object):
 
         if topic is None:
             topic = self.default_topic
-
         if self.protocol == "BLE":
+            if length > self.BLE.MAX_PAYLOAD:
+                print("The length of this tune is larger than the limit of: " + str(self.BLE.MAX_PAYLOAD) + " notes")
+                return
             payload = [packet_size, command_id, payload_size, index]
             for i in range(0, length):
-                payload.append(tune[i])
+                payload.append(tune_chunk[i])
+
             self.BLE.write_to_robo(self.BLE.write_uuid, bytearray(payload))
             return
         if self.protocol == "MQTT":
             payload = [command_id, payload_size, index]
             for i in range(0, length):
-                payload.append(tune[i])
+                payload.append(tune_chunk[i])
             command = self.MQTT.get_mqtt_cmd(payload)
             self.MQTT.publish(topic, command)
             return
@@ -182,30 +180,31 @@ class System(object):
         self.set_tune(0xff, tempo)
 
     def play_note(self, note, beat, tempo, topic=None):
-        packet_size = 0x03
+        packet_size = 0x05
         command_id = 0x94
-        payload_size = 0x02
+        payload_size = 0x03
 
         r = range(0,16)
         if beat not in r or note not in r:
             print("Beat and/or Note is out of range")
             return
 
-        beat = 0x0f 
+        beat = beat 
         note = (note << 4) + beat # combine note and beat data
 
         if topic is None:
             topic = self.default_topic
 
         if self.protocol == "BLE":
-            self.BLE.write_to_robo(self.BLE.write_uuid, bytearray([packet_size, command_id, payload_size, note, tempo]))
+            self.BLE.write_to_robo(self.BLE.write_uuid, bytearray([packet_size, command_id, payload_size, note, tempo, self.action_id]))
             return
         if self.protocol == "MQTT":
-            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, note, tempo])
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, note, tempo, self.action_id])
             self.MQTT.publish(topic, command)
             return
 
     def action_complete(self, id, cmd_status):
+        print "System Action Done!"
         self.action_status = cmd_status
 
     def check_action(self):

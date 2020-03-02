@@ -49,7 +49,7 @@ class Robo(object):
         if self.MQTT is not None:
             self.protocol = "MQTT"
             mqtt.subscribe(self.receive_topic)
-            mqtt.add_robo(self.name, self)
+            mqtt.add_robo(self.name[3:], self)
             
         if self.protocol is None:
             raise Exception('BLE Nor MQTT is Selected, Exiting')
@@ -136,10 +136,10 @@ class Robo(object):
 
         self.System = System('System', self.BLE, self.MQTT, self.protocol, self.default_topic, 52)
 
-        self.LT1 = LT('LT1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 53, 54, 55)
-        self.LT2 = LT('LT2', self.BLE, self.MQTT, self.protocol, self.default_topic, 2, 56, 57, 58)
-        self.LT3 = LT('LT3', self.BLE, self.MQTT, self.protocol, self.default_topic, 3, 59, 60, 61)
-        self.LT4 = LT('LT4', self.BLE, self.MQTT, self.protocol, self.default_topic, 4, 62, 63, 64)
+        self.LT1 = LT('LT1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 73, 53, 54, 55)
+        self.LT2 = LT('LT2', self.BLE, self.MQTT, self.protocol, self.default_topic, 2, 74, 56, 57, 58)
+        self.LT3 = LT('LT3', self.BLE, self.MQTT, self.protocol, self.default_topic, 3, 75, 59, 60, 61)
+        self.LT4 = LT('LT4', self.BLE, self.MQTT, self.protocol, self.default_topic, 4, 76, 62, 63, 64)
 
         self.IMU1 = IMU('IMU1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 65)
         self.IMU2 = IMU('IMU2', self.BLE, self.MQTT, self.protocol, self.default_topic, 2, 66)
@@ -183,7 +183,7 @@ class Robo(object):
                         '41': self.Matrix1, '42': self.Matrix2, '43': self.Matrix3, '44': self.Matrix4,
                         '45': self.Matrix5, '46': self.Matrix6, '47': self.Matrix7, '48': self.Matrix8,
                         '52': self.System, '69': self.Display1, '70': self.Display2, '71': self.Display3, '72': self.Display4,
-                        '166': self, '167': self # drive and turn ids
+                        '73': self.LT1, '74': self.LT2, '75': self.LT3, '76': self.LT4, '166': self, '167': self # drive and turn ids
                         }
 
         self.get_build()
@@ -357,8 +357,6 @@ class Robo(object):
         
         if vel < 0:
             vel = 0
-        if vel > self.Motor1.max_velocity:
-            vel = self.Motor1.max_velocity
 
         vel_h = vel / 256
         vel_l = vel % 256
@@ -373,7 +371,7 @@ class Robo(object):
             return
         if self.protocol == "MQTT":
             command = self.MQTT.get_mqtt_cmd([command_id, payload_size, action_id, motors, directions,
-                                              vel_h, vel_l, wd_h, wd_l, distance_h, distance_l])
+                            vel_h, vel_l, wd_h, wd_l, distance_h, distance_l])
             self.MQTT.publish(topic, command)
 
     def turn(self, vel, angle, direction, topic=None, wait=0, motors=(1, 2), wd=89, turning_radius=91):
@@ -433,15 +431,16 @@ class Robo(object):
         command_id = 0x30
         payload_size = 0x02
         off = 0x00
-        command = bytearray([packet_size, command_id, payload_size, off])
 
         if topic is None:
             topic = self.default_topic
 
         if self.protocol == "BLE":
-            self.BLE.write_to_robo(self.BLE.write_uuid, command)
+            command = [packet_size, command_id, payload_size, off]
+            self.BLE.write_to_robo(self.BLE.write_uuid, bytearray(command))
         if self.protocol == "MQTT":
-            command = self.MQTT.get_mqtt_command([command_id, payload_size, off])
+            command = [command_id, payload_size, off]
+            command = self.MQTT.get_mqtt_cmd(command)
             self.MQTT.publish(topic, command)
 
         for rgb in self.RGBs:
@@ -536,7 +535,7 @@ class Robo(object):
             command = bytearray(command)
             self.BLE.write_to_robo(self.BLE.write_uuid, command)
         if self.protocol == "MQTT":
-            command = self.MQTT.get_mqtt_command([command_id, payload_size, off])
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, off])
             self.MQTT.publish(topic, command)
 
     def connect_mqtt(self):
@@ -576,7 +575,7 @@ class Robo(object):
             command = bytearray(command)
             self.BLE.write_to_robo(self.BLE.write_uuid, command)
         if self.protocol == "MQTT":
-            command = self.MQTT.get_mqtt_command([command_id, payload_size, off])
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, off])
             self.MQTT.publish(topic, command)
 
     def set_wifi_psk(self, password, topic = None):
@@ -599,7 +598,7 @@ class Robo(object):
             command = bytearray(command)
             self.BLE.write_to_robo(self.BLE.write_uuid, command)
         if self.protocol == "MQTT":
-            command = self.MQTT.get_mqtt_command([command_id, payload_size, off])
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, off])
             self.MQTT.publish(topic, command)
 
     def set_broker(self, broker, topic = None):
@@ -622,7 +621,7 @@ class Robo(object):
             command = bytearray(command)
             self.BLE.write_to_robo(self.BLE.write_uuid, command)
         if self.protocol == "MQTT":
-            command = self.MQTT.get_mqtt_command([command_id, payload_size, off])
+            command = self.MQTT.get_mqtt_cmd([command_id, payload_size, off])
             self.MQTT.publish(topic, command)
 
     def OTA(self):
