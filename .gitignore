@@ -1,0 +1,2 @@
+# exclude generated build output
+docs/_build/
