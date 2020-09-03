@@ -72,6 +72,7 @@ robopython/robo/__init__.py
 robopython/robo/accelerometer.py
 robopython/robo/button.py
 robopython/robo/camera.py
+robopython/robo/colour.py
 robopython/robo/display.py
 robopython/robo/ir.py
 robopython/robo/light.py

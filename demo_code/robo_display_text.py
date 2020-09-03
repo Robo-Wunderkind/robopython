@@ -7,7 +7,7 @@ try:
         Robo.display_text("Welcome to Robo Wunderkind!", [Robo.Matrix1])
 
 except KeyboardInterrupt:
-    print "Exiting"
+    print("Exiting")
 
 finally:
     Robo.stop_all()

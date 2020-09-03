@@ -17,7 +17,7 @@ def drive_demo(Robo):
                     continue
 
                 if input_char == 'q':
-                    print "Exiting Drive Demo"
+                    print("Exiting Drive Demo")
                     break
 
                 if input_char == 'w' and previous_cmd != 'w':

@@ -46,7 +46,7 @@ class IMU(object):
                 if accelerations is None:
                     return
                 accelerations = [accelerations[i:i + 2] for i in xrange(0, len(accelerations), 2)] 
-                print accelerations
+                print(accelerations)
                 return accelerations
         print(self.name + " is NOT Connected!")
 

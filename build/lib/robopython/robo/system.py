@@ -191,8 +191,8 @@ class System(object):
             print("Beat and/or Note is out of range")
             return
 
-        beat = 0x0f 
-        note = (note << 4) + beat # combine note and beat data
+        beat = (beat & 0x07) << 5 
+        note += beat # combine note and beat data
 
         if topic is None:
             topic = self.default_topic

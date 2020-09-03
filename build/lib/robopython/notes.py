@@ -1,33 +1,42 @@
 # index of Note frequency stored on the system cube
-NOTE_C3 = 1
-NOTE_D3 = 2
-NOTE_E3 = 3
-NOTE_F3 = 4
-NOTE_G3 = 5
-NOTE_A3 = 6
-NOTE_B3 = 7
-NOTE_C4 = 8
-NOTE_D4 = 9
-NOTE_E4 = 10
-NOTE_F4 = 11
-NOTE_G4 = 12
-NOTE_A4 = 13
-NOTE_B4 = 14
-NOTE_C5 = 15
+NOTE_E2 = 1
+NOTE_F2 = 2
+NOTE_G2 = 3
+NOTE_A2 = 4
+NOTE_B2 = 5
+NOTE_C3 = 6
+NOTE_D3 = 7
+NOTE_E3 = 8
+NOTE_F3 = 9
+NOTE_G3 = 10
+NOTE_A3 = 11
+NOTE_B3 = 12
+NOTE_C4 = 13
+NOTE_D4 = 14
+NOTE_E4 = 15
+NOTE_F4 = 16
+NOTE_G4 = 17
+NOTE_A4 = 18
+NOTE_B4 = 19
+NOTE_C5 = 20
+NOTE_D5 = 21
+NOTE_E5 = 22
+NOTE_F5 = 23
+NOTE_G5 = 24
 SILENCE = 0
 
+
+  
+
 # in quarter beat units
-BEAT025 = 0
+INF = 0
 BEAT05 = 1
 BEAT075 = 2
 BEAT1 = 3
-BEAT125 = 4
-BEAT15 = 5
-BEAT175 = 6
-BEAT2 = 7
-BEAT25 = 9
-BEAT3 = 11
-BEAT4 = 15
+BEAT15 = 4
+BEAT2 = 5
+BEAT3 = 6
+BEAT4 = 7
 
 # Tempos in BPM
 TEMPO_LARGHISSIMO = 0

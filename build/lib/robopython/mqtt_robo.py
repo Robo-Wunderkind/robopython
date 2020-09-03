@@ -26,7 +26,7 @@ class MQTT(object):
         address = None
         try:
             address = socket.gethostbyname(self.broker)
-            print address
+            print(address)
         except socket.gaierror:
             print("Could not find broker on this network: ", self.broker)
             return
