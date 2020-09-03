@@ -16,6 +16,10 @@ robopython
 
 Robo Wunderkind Python API - BLED112 USB Dongle Required
 
+Official Robo Wunderkind Modular Robotics Kit Python Interface
+
+For more information about Robo Wunderkind please visit https://www.robowunderkind.com/
+
 Python 2.x Supported
 Python 3.x Supported
 
