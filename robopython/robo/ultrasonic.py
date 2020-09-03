@@ -1,3 +1,4 @@
+import time
 from binascii import hexlify
 
 
@@ -30,6 +31,7 @@ class Ultrasonic(object):
         payload_size = 0x01
         module_id = self.id - 1
         command = bytearray([packet_size, command_id, payload_size, module_id])
+        distance_cm = 0
 
         if topic is None:
             topic = self.default_topic
@@ -45,10 +47,11 @@ class Ultrasonic(object):
                 return distance_cm
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([command_id, payload_size, module_id])
+                self.MQTT.message = "None"
                 self.MQTT.publish(topic, command)
+                while self.MQTT.message[0:2] != '84':
+                  time.sleep(0.01)
                 distance = self.MQTT.message
-                if distance is None:
-                    return 0
                 distance = [distance[i:i + 2] for i in xrange(0, len(distance), 2)]
                 if len(distance) != 7:
                     return

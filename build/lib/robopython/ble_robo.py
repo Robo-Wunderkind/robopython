@@ -24,7 +24,6 @@ class BLED112(object):
         self.Devices = []
         self.adapter = self.set_adapter()
         self.start()
-        self.MAX_PAYLOAD = 16
         if self.BLE_Connected:
             self.connect_ble()
 

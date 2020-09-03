@@ -12,7 +12,7 @@ class MQTT(object):
         self.client = mqtt.Client(client_name)
         self.client.on_message = self.on_message  # attach function to callback
         self.MQTT_Connected = False
-        self.message = None
+        self.message = "None"
         self.topic = None
         self.roboName = None
         self.build_cmd = '01'
@@ -26,7 +26,7 @@ class MQTT(object):
         address = None
         try:
             address = socket.gethostbyname(self.broker)
-            print address
+            print(address)
         except socket.gaierror:
             print("Could not find broker on this network: ", self.broker)
             return
@@ -72,7 +72,6 @@ class MQTT(object):
             if self.roboName in self.robo_dict:
                 msg = [self.message[i:i + 2] for i in xrange(0, len(self.message), 2)]
                 cmd = msg[0]
-                print(msg)
                 robo = self.robo_dict[self.roboName]
                 if cmd == self.build_cmd:
                     build_data = msg
@@ -115,8 +114,6 @@ class MQTT(object):
 
     def publish(self, topic, data, retain = False):
         if self.MQTT_Connected:
-            #print data
-            #print topic, data
             self.client.publish(topic, data, self.QOS, retain)
 
     def subscribe(self, topic):

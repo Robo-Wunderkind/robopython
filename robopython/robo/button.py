@@ -44,7 +44,10 @@ class Button(object):
 
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([command_id, payload_size, module_id])
+                self.MQTT.message = "None"
                 self.MQTT.publish(topic, command)
+                while self.MQTT.message[0:2] != '85':
+                    time.sleep(0.01)
                 state = self.MQTT.message
                 if state is None:
                     return
@@ -87,5 +90,5 @@ class Button(object):
         if value is None:
             return False
         self.trigger_status = None
-        print "Button triggered!"
+        #print("Button triggered!")
         return value

@@ -1,26 +1,28 @@
 import time
 import platform
-from ble_robo import BLED112
-from mqtt_robo import MQTT
 from binascii import hexlify
 from collections import OrderedDict
-from robo.motor import Motor
-from robo.servo import Servo
-from robo.rgb import RGB
-from robo.matrix import Matrix
-from robo.ultrasonic import Ultrasonic
-from robo.motion import Motion
-from robo.light import Light
-from robo.button import Button
-from robo.meteo import Meteo
-from robo.camera import Camera
-from robo.system import System
-from robo.accelerometer import IMU
-from robo.ir import IR
-from robo.linetracker import LT
-from robo.display import Display
-from matrix_characters import characters
 
+from .ble_robo import BLED112
+from .mqtt_robo import MQTT
+
+from .robo.motor import Motor
+from .robo.servo import Servo
+from .robo.rgb import RGB
+from .robo.matrix import Matrix
+from .robo.ultrasonic import Ultrasonic
+from .robo.motion import Motion
+from .robo.light import Light
+from .robo.button import Button
+from .robo.meteo import Meteo
+from .robo.camera import Camera
+from .robo.system import System
+from .robo.accelerometer import IMU
+from .robo.ir import IR
+from .robo.linetracker import LT
+from .robo.display import Display
+from .robo.colour import Colour
+from .matrix_characters import characters
 
 class Robo(object):
 
@@ -64,7 +66,8 @@ class Robo(object):
                             'Ultrasonic': 4,
                             'Light': 4,
                             'Motion': 4,
-                            'Display': 4
+                            'Display': 4,
+                            'Colour': 1
                           }
         self.currentBuildBits = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
                                  [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
@@ -151,6 +154,8 @@ class Robo(object):
         self.Display3 = Display('Display3', self.BLE, self.MQTT, self.protocol, self.default_topic, 3, 71)
         self.Display4 = Display('Display4', self.BLE, self.MQTT, self.protocol, self.default_topic, 4, 72)
 
+        self.Colour1 = Colour('Colour1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 73)
+
         self.build_map = [
                             [self.RGB2, self.RGB1, self.Servo2, self.Servo1, self.Motor4,  # Byte 1
                              self.Motor3, self.Motor2, self.Motor1],
@@ -166,7 +171,7 @@ class Robo(object):
                              self.Ultrasonic3, self.Ultrasonic2, self.Light4, self.Light3],
                             [self.IMU4, self.IMU3, self.IMU2, self.IMU1,                   # Byte 7
                              self.LT4, self.LT3, self.LT2, self.LT1],
-                            [None, None, None, None,                                       # Byte 8
+                            [None, None, None, self.Colour1,                               # Byte 8
                              self.Display4, self.Display3, self.Display2, self.Display1]
                         ]
         self.triggers = {'21': self.Button1, '22': self.Button2, '23': self.Button3, '24': self.Button4,
@@ -174,7 +179,7 @@ class Robo(object):
                          '29': self.Ultrasonic3, '30': self.Ultrasonic3, '31': self.Ultrasonic4, '32': self.Ultrasonic4,
                          '33': self.Light1, '34': self.Light2, '35': self.Light3, '36': self.Light4, '37': self.Motion1,
                          '38': self.Motion2, '39': self.Motion3, '40': self.Motion4, '49': self.Meteo1,
-                         '50': self.Camera1, '51': self.IR1
+                         '50': self.Camera1, '51': self.IR1, '73': self.Colour1
                          }
         self.actions = {'1': self.Motor1, '2': self.Motor2, '3': self.Motor3, '4': self.Motor4, '5': self.Motor5,
                         '6': self.Motor6, '7': self.Servo1, '8': self.Servo2, '9': self.Servo3, '10': self.Servo4,
@@ -187,7 +192,6 @@ class Robo(object):
                         }
 
         self.get_build()
-        time.sleep(0.5)
 
     def reset_build_map(self):
         for byte in self.build_map:
@@ -198,9 +202,10 @@ class Robo(object):
         data = hexlify(value)
         data = [data[i:i + 2] for i in xrange(0, len(data), 2)]
         read_data = data
+        #print(read_data)
 
         if read_data[0] not in self.interrupts:
-            #print read_data
+            #print(read_data)
             return
 
         if read_data[0] == '01':
@@ -213,7 +218,7 @@ class Robo(object):
         if read_data[0] == 'c0':
             cmd_id = str(int(read_data[-2], 16))
             cmd_status = int(read_data[-1], 16)
-            #print cmd_id
+            #print(cmd_id)
             if cmd_id in self.triggers:
                 cmd_id = int(cmd_id)
                 self.triggers[str(cmd_id)].triggered(cmd_id, cmd_status)
@@ -221,13 +226,13 @@ class Robo(object):
             if cmd_id in self.actions:
                 cmd_id = int(cmd_id)
                 self.actions[str(cmd_id)].action_complete(cmd_id, cmd_status)
-		if cmd_id == 166 or 167:
-			self.action_complete(cmd_id, cmd_status)
-			return
-		else:
-			self.actions[cmd_id].action_complete(cmd_id, cmd_status) #takes the instance of module that has its action completed 
-																     #and signals that the action is done
-                return
+        if cmd_id == 166 or 167:
+            self.action_complete(cmd_id, cmd_status)
+            return
+        else:
+            #takes the instance of module that has its action complete and signals that the action is done
+            self.actions[cmd_id].action_complete(cmd_id, cmd_status) 
+            return
 
     def update_build(self, build_data):
         if build_data is None:
@@ -282,7 +287,10 @@ class Robo(object):
 
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([payload_size, command_id])
+                self.MQTT.message = "None"
                 self.MQTT.publish(self.default_topic, command)
+                while self.MQTT.message[0:2] != '01':
+                    time.sleep(0.01)
                 build = self.MQTT.message
                 if build is None:
                     return
@@ -417,6 +425,26 @@ class Robo(object):
                 time.sleep(0.1)
             return True
 
+    def gyro_turn(self, vel, angle, wd=0x59):
+        packet_size = 0x0c
+        command_id = 0xaa
+        payload_size = 0x0a
+        wd_h = wd / 256
+        wd_l = wd % 256
+        angle_h = angle / 256
+        angle_l = angle % 256
+        vel_h = vel / 256
+        vel_l = vel % 256
+        directions = 0x00
+        motors = 0x03
+        accNum = 0
+
+        command = bytearray([packet_size, command_id, payload_size, self.turn_id, accNum, motors, directions,
+                             vel_h, vel_l, wd_h, wd_l, angle_h, angle_l])
+        if self.protocol == "BLE":
+            self.BLE.write_to_robo(self.BLE.write_uuid, command)
+            return
+
     def action_complete(self, id, cmd_status):
         #print "Action completed: ", id
         self.idle = True
@@ -483,8 +511,8 @@ class Robo(object):
             return
         self.System.play_sound(sound)
 
-    def play_tune(self, tune):
-        self.System.set_tune(tune)
+    def play_tune(self, tune, tempo):
+        self.System.set_tune(tune, tempo)
 
     def play_custom_tune(self, tempo):
         self.System.play_custom_tune(tempo)
@@ -496,8 +524,8 @@ class Robo(object):
         tune_chunk = []
         print(tune)
         for idx, note in enumerate(tune):
-            beat = note[1] 
-            byte = (note[0] << 4) + beat # combine note and beat data
+            beat = (note[1] & 0x07) << 5
+            byte = note + beat # combine note and beat data
             tune_chunk.append(byte)
         print(tune_chunk)
         if len(tune_chunk) != 0:
@@ -561,7 +589,7 @@ class Robo(object):
     def set_wifi_ssid(self, ssid, topic = None):# finishe these and fully test the NVS code
         length = len(ssid)
         if length > 17:
-            print "ssid is too long"
+            print("ssid is too long")
             return
         packet_size = length+2
         command_id = 0x45
@@ -581,7 +609,7 @@ class Robo(object):
     def set_wifi_psk(self, password, topic = None):
         length = len(password)
         if length > 17:
-            print "password is too long"
+            print("password is too long")
             return
         packet_size = length+2
         command_id = 0x46
@@ -604,7 +632,7 @@ class Robo(object):
     def set_broker(self, broker, topic = None):
         length = len(broker)
         if length > 15:
-            print "ip address is too long"
+            print("ip address is too long")
             return
         packet_size = length+2
         command_id = 0x4A

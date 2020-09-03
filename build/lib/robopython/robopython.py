@@ -187,7 +187,6 @@ class Robo(object):
                         }
 
         self.get_build()
-        time.sleep(0.5)
 
     def reset_build_map(self):
         for byte in self.build_map:
@@ -282,7 +281,10 @@ class Robo(object):
 
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([payload_size, command_id])
+                self.MQTT.message = "None"
                 self.MQTT.publish(self.default_topic, command)
+                while self.MQTT.message[0:2] != '01':
+                    time.sleep(0.01)
                 build = self.MQTT.message
                 if build is None:
                     return
@@ -483,31 +485,25 @@ class Robo(object):
             return
         self.System.play_sound(sound)
 
-    def play_tune(self, tune, tempo):
-        self.System.set_tune(tune, tempo)
+    def play_tune(self, tune):
+        self.System.set_tune(tune)
 
     def play_custom_tune(self, tempo):
         self.System.play_custom_tune(tempo)
 
-    def chunkify(self, lst, n):
-        """Yield successive n-sized chunks from lst."""
-        chunked_list = []
-        for i in xrange(0, len(lst), n):
-            chunked_list.append(lst[i:i + n])
-        return chunked_list
-
     def upload_tune(self, tune, tempo):  # still in development
+
+        max_payload = 16
         index = 0
-        tune_bytes = []
+        tune_chunk = []
+        print(tune)
         for idx, note in enumerate(tune):
             beat = note[1] 
             byte = (note[0] << 4) + beat # combine note and beat data
-            tune_bytes.append(byte)
-        tune = self.chunkify(tune_bytes, self.BLE.MAX_PAYLOAD)
-        for chunk in tune:
-            length = len(chunk)
-            self.System.upload_custom_tune(chunk, index)
-            index+=length
+            tune_chunk.append(byte)
+        print(tune_chunk)
+        if len(tune_chunk) != 0:
+            self.System.upload_custom_tune(tune_chunk, index)
         self.play_custom_tune(tempo)
 
     def play_note(self, note, beat = 0x0f, tempo = 0):

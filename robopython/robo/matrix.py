@@ -132,11 +132,11 @@ class Matrix(object):
         if self.orientation == 270:
             rows = self.rotate_left(rows)
 
+        for idx, row in enumerate(rows):
+            row_bytes.append(int(hex(int(row, 2)), 16))
+
         if self.is_connected == 1:
             if self.protocol == "BLE":
-                for idx, row in enumerate(rows):
-                    row_bytes.append(int(hex(int(row, 2)), 16))
-
                 command = bytearray([packet_size, command_id, payload_size, self.action_id, module_id,
                                      row_bytes[0], row_bytes[1], row_bytes[2], row_bytes[3], row_bytes[4],
                                      row_bytes[5], row_bytes[6], row_bytes[7], time_h, time_l])
@@ -144,8 +144,8 @@ class Matrix(object):
                 return
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([command_id, payload_size, self.action_id, module_id,
-                                                  rows[0], rows[1], rows[2], rows[3], rows[4],
-                                                  rows[5], rows[6], rows[7], time_h, time_l])
+                                                  row_bytes[0], row_bytes[1], row_bytes[2], row_bytes[3], row_bytes[4],
+                                                  row_bytes[5], row_bytes[6], row_bytes[7], time_h, time_l])
                 self.MQTT.publish(topic, command)
                 return
         print(self.name + " is NOT Connected!")

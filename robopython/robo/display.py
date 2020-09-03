@@ -30,7 +30,7 @@ class Display(object):
         if value is None:
             return False
         self.action_status = None
-        print "Display Action Completed"
+        print("Display Action Completed")
         return True
 
     def animate(self, animation_num, repeats, reverse, orientation, num_frames = 0, frame_rateH = 0, frame_rateL = 0):

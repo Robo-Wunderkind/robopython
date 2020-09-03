@@ -44,7 +44,10 @@ class Light(object):
 
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([command_id, payload_size, module_id])
+                self.MQTT.message = "None"
                 self.MQTT.publish(topic, command)
+                while self.MQTT.message[0:2] != '80':
+                    time.sleep(0.01)
                 light = self.MQTT.message
                 if light is None:
                     return

@@ -44,7 +44,10 @@ class Motion(object):
 
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([command_id, payload_size, module_id])
+                self.MQTT.message = "None"
                 self.MQTT.publish(topic, command)
+                while self.MQTT.message[0:2] != '83':
+                  time.sleep(0.01)
                 status = self.MQTT.message
                 status = [status[i:i+2] for i in xrange(0, len(status), 2)]
                 if status is None:
@@ -74,7 +77,6 @@ class Motion(object):
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([command_id, payload_size, self.trigger_id, module_id, condition])
                 self.MQTT.publish(topic, command)
-                print "Set Trigger of: ", self.name
                 return 
         print(self.name + " is NOT Connected!")
 

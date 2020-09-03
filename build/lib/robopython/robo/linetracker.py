@@ -23,7 +23,6 @@ class LT(object):
         self.right_status = 0
         self.left_status = 0
 
-
     def connected(self):
         self.is_connected = 1
         print("LineTracker" + str(self.id) + " connected")
@@ -75,7 +74,25 @@ class LT(object):
                 index = int(data[8], 16)
                 return
             if self.protocol == "MQTT":
-                pass
+                command = self.MQTT.get_mqtt_cmd([command_id, payload_size, module_id])
+                self.MQTT.message = "None"
+                self.MQTT.publish(topic, command)
+                while self.MQTT.message[0:2] != '86':
+                  time.sleep(0.01)
+                data = self.MQTT.message
+                data = [data[i:i + 2] for i in xrange(0, len(data), 2)]
+                if len(data) != 12:
+                    return
+                right = int(data[3], 16) * 256 + int(data[2], 16)
+                center = int(data[5], 16) * 256 + int(data[4], 16)
+                left = int(data[7], 16) * 256 + int(data[6], 16)
+                if right > 10000 or left > 10000 or center > 10000:
+                    return
+                self.left = left
+                self.right = right
+                self.center = center
+                index = int(data[8], 16)
+                return
         print(self.name + " is NOT Connected!")
 
     def calibrate(self):
@@ -111,7 +128,6 @@ class LT(object):
                              motors, direction, speed, 9, 25]
                 command = self.MQTT.get_mqtt_cmd(command)
                 self.MQTT.publish(self.default_topic, command)
-                print command
                 return
         print(self.name + " is NOT Connected!")
 

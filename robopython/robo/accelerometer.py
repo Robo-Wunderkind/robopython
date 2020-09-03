@@ -38,19 +38,16 @@ class IMU(object):
 
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([command_id, payload_size, module_id])
+                self.MQTT.message = "None"
                 self.MQTT.publish(topic, command)
+                while self.MQTT.message[0:2] != '90':
+                    time.sleep(0.01)
                 accelerations = self.MQTT.message
                 if accelerations is None:
                     return
                 accelerations = [accelerations[i:i + 2] for i in xrange(0, len(accelerations), 2)] 
-                print accelerations
+                print(accelerations)
                 return accelerations
-                '''
-                if len(light) != 5:
-                    return
-                light_lvl = int(light[3], 16) * 256 + int(light[2], 16)
-                return light_lvl
-                '''
         print(self.name + " is NOT Connected!")
 
     def set_trigger(self, value, comparator, topic=None):        # comparator 0 = less than 1 = greater than

@@ -1,7 +1,7 @@
 import platform
 import time
 from binascii import hexlify
-from pygatt.backends.bgapi.bgapi import BGAPIBackend
+from .pygatt.backends.bgapi.bgapi import BGAPIBackend
 
 
 class BLED112(object):

@@ -46,6 +46,35 @@ class Motor(object):
                 return
         print(self.name + " is NOT Connected!")
 
+    def angle(self, angle, topic=None):   # angle must be positive, direction 1 = CW direction = 0 = CCW
+        assert type(angle) is int, "angle must be an integer"
+        
+        if topic is None:
+            topic = self.default_topic
+
+        packet_size = 0x07
+        command_id = 0x5b
+        payload_size = 0x05
+        module_id = self.id-1
+        direction = 1
+
+        if angle < 0:
+            direction = 0
+
+        angleH = abs(angle)/256
+        angleL = abs(angle)%256
+        command = bytearray([packet_size, command_id, payload_size, module_id, self.action_id, angleH, angleL, direction])
+
+        if self.is_connected == 1:
+            if self.protocol == "BLE":
+                self.BLE.write_to_robo(self.BLE.write_uuid, command)
+                return
+            if self.protocol == "MQTT":
+                command = self.MQTT.get_mqtt_cmd([command_id, payload_size, module_id, self.action_id, angleH, angleL, direction])
+                self.MQTT.publish(topic, str(command))
+                return
+        print(self.name + " is NOT Connected!")
+
     def set_speed_cw(self, speed):   # speed 0-100
         assert type(speed) is int, "speed must be an integer"
         if speed < 0 or speed > 100:
@@ -95,7 +124,6 @@ class Motor(object):
                 command = self.MQTT.get_mqtt_cmd(
                     [command_id, payload_size, self.action_id, module_id, velocity_h, velocity_l, wd_h, wd_l,
                      distance_h, distance_l])
-                print velocity_h,velocity_l
                 self.MQTT.publish(topic, command)
                 return
         print(self.name + " is NOT Connected!")
