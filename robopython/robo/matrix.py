@@ -118,8 +118,8 @@ class Matrix(object):
         payload_size = 0x0c
         module_id = self.id - 1
         row_bytes = []
-        time_h = duration / 256
-        time_l = duration % 256
+        time_h = int(duration / 256)
+        time_l = int(duration % 256)
 
         if topic is None:
             topic = self.default_topic

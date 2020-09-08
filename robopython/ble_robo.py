@@ -81,13 +81,17 @@ class BLED112(object):
     def scan(self):
         time.sleep(0.2)
         self.Devices = []
+        byte = 0
         devices = self.adapter.scan()
         for idx, dev in enumerate(devices):
             name = dev['name']
             if name != ' ':
                 filtered_name = ''
                 for char in name:
-                    byte = int(hexlify(char), 16)
+                    try:
+                        byte = int(hexlify(char.encode()), 16)
+                    except UnicodeEncodeError:
+                        byte = 0
                     if byte <= 32:
                         continue
                     filtered_name += char

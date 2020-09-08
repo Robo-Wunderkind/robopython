@@ -2,6 +2,7 @@ import time
 import platform
 from binascii import hexlify
 from collections import OrderedDict
+from past.builtins import xrange
 
 from .ble_robo import BLED112
 from .mqtt_robo import MQTT
@@ -200,9 +201,8 @@ class Robo(object):
 
     def handle_rx_data(self, handle, value):
         data = hexlify(value)
-        data = [data[i:i + 2] for i in xrange(0, len(data), 2)]
+        data = [data[i:i + 2].decode("utf-8") for i in xrange(0, len(data), 2)]
         read_data = data
-        #print(read_data)
 
         if read_data[0] not in self.interrupts:
             #print(read_data)
@@ -218,7 +218,6 @@ class Robo(object):
         if read_data[0] == 'c0':
             cmd_id = str(int(read_data[-2], 16))
             cmd_status = int(read_data[-1], 16)
-            #print(cmd_id)
             if cmd_id in self.triggers:
                 cmd_id = int(cmd_id)
                 self.triggers[str(cmd_id)].triggered(cmd_id, cmd_status)
@@ -339,8 +338,8 @@ class Robo(object):
         packet_size = 0x0b
         command_id = 0xa6
         payload_size = 0x09
-        wd_h = wd / 256
-        wd_l = wd % 256
+        wd_h = int(wd / 256)
+        wd_l = int(wd % 256)
         directions = 0
         motors = 0
 
@@ -357,8 +356,8 @@ class Robo(object):
                 print ('Motor' + str(index) + ' is not connected')
                 return
 
-        distance_h = distance / 256
-        distance_l = distance % 256
+        distance_h = int(distance / 256)
+        distance_l = int(distance % 256)
         for cmd in motor_cmds:
             motors += 2**(cmd[0]-1)
             directions += (2**(cmd[0]-1))*cmd[1]
@@ -366,8 +365,8 @@ class Robo(object):
         if vel < 0:
             vel = 0
 
-        vel_h = vel / 256
-        vel_l = vel % 256
+        vel_h = int(vel / 256)
+        vel_l = int(vel % 256)
 
         if vel > 0 and distance > 0:
             self.idle = False
@@ -429,12 +428,12 @@ class Robo(object):
         packet_size = 0x0c
         command_id = 0xaa
         payload_size = 0x0a
-        wd_h = wd / 256
-        wd_l = wd % 256
-        angle_h = angle / 256
-        angle_l = angle % 256
-        vel_h = vel / 256
-        vel_l = vel % 256
+        wd_h = int(wd / 256)
+        wd_l = int(wd % 256)
+        angle_h = int(angle / 256)
+        angle_l = int(angle % 256)
+        vel_h = int(vel / 256)
+        vel_l = int(vel % 256)
         directions = 0x00
         motors = 0x03
         accNum = 0

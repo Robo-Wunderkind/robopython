@@ -61,8 +61,8 @@ class Motor(object):
         if angle < 0:
             direction = 0
 
-        angleH = abs(angle)/256
-        angleL = abs(angle)%256
+        angleH = int(abs(angle)/256)
+        angleL = int(abs(angle)%256)
         command = bytearray([packet_size, command_id, payload_size, module_id, self.action_id, angleH, angleL, direction])
 
         if self.is_connected == 1:
@@ -108,12 +108,12 @@ class Motor(object):
         command_id = 0xa0
         payload_size = 0x08
         module_id = self.id-1
-        velocity_h = vel/256
-        velocity_l = vel % 256
-        wd_h = wd/256
-        wd_l = wd % 256
-        distance_h = distance / 256
-        distance_l = distance % 256
+        velocity_h = int(vel/256)
+        velocity_l = int(vel % 256)
+        wd_h = int(wd/256)
+        wd_l = int(wd % 256)
+        distance_h = int(distance / 256)
+        distance_l = int(distance % 256)
         command = bytearray([packet_size, command_id, payload_size, self.action_id, module_id, velocity_h, velocity_l,
                              wd_h, wd_l, distance_h, distance_l])
         if self.is_connected == 1:
@@ -121,9 +121,8 @@ class Motor(object):
                 self.BLE.write_to_robo(self.BLE.write_uuid, command)
                 return
             if self.protocol == "MQTT":
-                command = self.MQTT.get_mqtt_cmd(
-                    [command_id, payload_size, self.action_id, module_id, velocity_h, velocity_l, wd_h, wd_l,
-                     distance_h, distance_l])
+                command = self.MQTT.get_mqtt_cmd([command_id, payload_size, self.action_id, module_id, velocity_h, velocity_l, 
+                                                  wd_h, wd_l, distance_h, distance_l])
                 self.MQTT.publish(topic, command)
                 return
         print(self.name + " is NOT Connected!")
