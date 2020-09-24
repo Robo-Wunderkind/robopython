@@ -77,8 +77,8 @@ class RGB(object):
         command_id = 0xA2
         payload_size = 0x08
         module_id = self.id-1
-        period_h = period/256
-        period_l = period % 256
+        period_h = int(period/256)
+        period_l = int(period % 256)
         command = bytearray([packet_size, command_id, payload_size, self.action_id, module_id, red, green, blue,
                              period_h, period_l, num_blinks])
         self.R = red
@@ -125,8 +125,8 @@ class RGB(object):
         command_id = 0xA2
         payload_size = 0x08
         module_id = self.id-1
-        time_h = time/256
-        time_l = time % 256
+        time_h = int(time/256)
+        time_l = int(time % 256)
         command = bytearray([packet_size, command_id, payload_size, self.action_id, module_id, red, green, blue,
                              time_h, time_l, 0x00])
 

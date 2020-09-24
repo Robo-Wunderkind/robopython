@@ -23,8 +23,8 @@ Spin Distance
 |
 | ``vel`` must be between 0 and 100%
 | ``distance`` must be an integer in centimeters
-| ``wd`` is the wheel diameter and is by default the diameter of the large wheel. 
-| If different wheels are attached please specify the diamter in mm
+| ``wd`` is the wheel diameter and is by default 89 mm, the diameter of the large wheel. 
+| If different wheels are attached please specify the diameter in mm
 |
 | Robo will spin the motor at a constant velocity for the specified distance. If resistance is applied the motor will increase torque to try and maintain the velocity. 
 | When approaching the end distance the motor slows down to ensure it covers the specified distance and does not overshoot

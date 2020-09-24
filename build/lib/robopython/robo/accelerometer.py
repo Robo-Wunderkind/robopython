@@ -1,5 +1,5 @@
 from binascii import hexlify
-
+from past.builtins import xrange
 
 class IMU(object):
 
@@ -22,33 +22,46 @@ class IMU(object):
         self.is_connected = 0
         print("Acceleromter" + str(self.id) + " disconnected")
 
-    def get_accelerations(self, topic=None):                        # we need 2 bytes for this data to go up to 65,000+
-        packet_size = 0x03
-        command_id = 0x90
+    def convert_bytes_to_acc_value(self, high_byte, low_byte):
+        if int(high_byte, 16) >= 0x80:
+            return float(((int(high_byte, 16)*256 + int(low_byte, 16)) - 65535 - 1))/100.0
+        return float((int(high_byte, 16)*256 + int(low_byte, 16)))/100.0
+
+    def convert_bytes_to_gyro_value(self, high_byte, low_byte):
+        if int(high_byte, 16) >= 0x80:
+            return float(((int(high_byte, 16)*256 + int(low_byte, 16)) - 65535 - 1))/10.0
+        return float((int(high_byte, 16)*256 + int(low_byte, 16)))/10.0
+
+    def get_values(self, topic=None):                       
+        command_id = 0x89
         payload_size = 0x01
+        packet_size = 0x03
         module_id = self.id - 1
         command = bytearray([packet_size, command_id, payload_size, module_id])
+        sensor_values = {}
 
         if topic is None:
             topic = self.default_topic
 
-        if self.is_connected == 0:
+        if self.is_connected == 1:
             if self.protocol == "BLE":
-                return
+                self.BLE.write_to_robo(self.BLE.write_uuid, command)
+                values = hexlify(self.BLE.read_from_robo())
+                values = [values[i:i + 2] for i in xrange(0, len(values), 2)]
+                if len(values) != 14: 
+                    return
+                sensor_values["acc_x"]  = self.convert_bytes_to_acc_value(values[2],values[3])
+                sensor_values["acc_y"]  = self.convert_bytes_to_acc_value(values[4],values[5])
+                sensor_values["acc_z"]  = self.convert_bytes_to_acc_value(values[6],values[7])
+                sensor_values["gyro_x"] = self.convert_bytes_to_gyro_value(values[8],values[9])
+                sensor_values["gyro_y"] = self.convert_bytes_to_gyro_value(values[10],values[11])
+                sensor_values["gyro_z"] = self.convert_bytes_to_gyro_value(values[12],values[13])
+                return sensor_values
 
             if self.protocol == "MQTT":
-                command = self.MQTT.get_mqtt_cmd([command_id, payload_size, module_id])
-                self.MQTT.message = "None"
-                self.MQTT.publish(topic, command)
-                while self.MQTT.message[0:2] != '90':
-                    time.sleep(0.01)
-                accelerations = self.MQTT.message
-                if accelerations is None:
-                    return
-                accelerations = [accelerations[i:i + 2] for i in xrange(0, len(accelerations), 2)] 
-                print(accelerations)
-                return accelerations
-        print(self.name + " is NOT Connected!")
+                return
+        else:
+            print(self.name + " is NOT Connected!")
 
     def set_trigger(self, value, comparator, topic=None):        # comparator 0 = less than 1 = greater than
         packet_size = 0x06

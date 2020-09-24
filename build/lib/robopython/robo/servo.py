@@ -25,8 +25,8 @@ class Servo(object):
         command_id = 0xA1
         payload_size = 0x04
         module_id = self.id-1
-        angleH = angle / 256
-        angleL = angle % 256
+        angleH = int(angle / 256)
+        angleL = int(angle % 256)
 
         command = bytearray([packet_size, command_id, payload_size, self.action_id, module_id, angleH, angleL])
 

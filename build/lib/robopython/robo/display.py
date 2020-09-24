@@ -1,4 +1,5 @@
 from binascii import hexlify
+from past.builtins import xrange
 import time
 
 class Display(object):
@@ -45,8 +46,8 @@ class Display(object):
         command_id = 0x58
         packet_size = 0x08
         payload_size = 0x06
-        delay_H = (delay/256)
-        delay_L = (delay%256)
+        delay_H = int(delay/256)
+        delay_L = int(delay%256)
         
         command = bytearray([packet_size, command_id, payload_size, self.action_id, self.id-1, image_num, orientation, delay_H, delay_L])
         self.BLE.write_to_robo(self.BLE.write_uuid, command)
@@ -83,8 +84,8 @@ class Display(object):
         packet_size  = 0x13
         payload_size = 0x11
 
-        frame_rateH = frame_rate / 256
-        frame_rateL = frame_rate % 256
+        frame_rateH = int(frame_rate / 256)
+        frame_rateL = int(frame_rate % 256)
 
         length = len(animation)
         if length > 5 or length < 0:
@@ -142,8 +143,8 @@ class Display(object):
         command_id   = 0x59
         packet_size  = 0x08
         payload_size = 0x06
-        scroll_rateH = scroll_rate / 256
-        scroll_rateL = scroll_rate % 256
+        scroll_rateH = int(scroll_rate / 256)
+        scroll_rateL = int(scroll_rate % 256)
 
         text_payload = []
         chars = []

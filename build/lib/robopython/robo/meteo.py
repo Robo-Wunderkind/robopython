@@ -1,5 +1,5 @@
 from binascii import hexlify
-
+from past.builtins import xrange
 
 class Meteo(object):
 

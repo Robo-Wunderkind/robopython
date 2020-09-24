@@ -504,8 +504,11 @@ class BGAPIBackend(BLEBackend):
                 bytes_left_in_field -= 1
                 if bytes_left_in_field == 0:
                     # End of field
-                    field_name = (
-                        constants.scan_response_data_type[field_value[0]])
+                    try:
+                        field_name = (
+                            constants.scan_response_data_type[field_value[0]])
+                    except KeyError:
+                        pass
                     field_value = field_value[1:]
                     # Field type specific formats
                     if (field_name == 'complete_local_name' or

@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Display &mdash; robopython 1.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Light Sensor" href="light.html" />
+    <link rel="prev" title="Button" href="button.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> robopython
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">robopython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="robo.html">Robo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bled112.html">BLED112</a></li>
+<li class="toctree-l1"><a class="reference internal" href="button.html">Button</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Display</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pre-programmed-image">Pre-Programmed Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-image">Custom Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pre-programmed-animation">Pre-Programmed Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-animation">Custom Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reset">Reset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="light.html">Light Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linetracker.html">Line Tracker LT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix.html">LED Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="motion.html">Motion Sensor PIR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="motor.html">Motor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rgb.html">RGB LED</a></li>
+<li class="toctree-l1"><a class="reference internal" href="servo.html">Servo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ultrasonic.html">Ultrasonic Sensor</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Info:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">robopython</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Display</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/display.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="display">
+<h1>Display<a class="headerlink" href="#display" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pre-programmed-image">
+<h2>Pre-Programmed Image<a class="headerlink" href="#pre-programmed-image" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">image(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">image_num</span></code>, <code class="docutils literal notranslate"><span class="pre">orientation</span></code>, <code class="docutils literal notranslate"><span class="pre">delay</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">image_num</span></code> is the index of the pre-programmed image 0-4</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">orientation</span></code> is the desired orientation to display the image. 0 - 3 -&gt; 0 - 270 degrees</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">delay</span></code> is the time in milliseconds that the image will be displayed for 0-&gt;65535</div>
+<div class="line">Displays the pre-programmed <code class="docutils literal notranslate"><span class="pre">image_num</span></code> on the LED Display cube</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">Display1</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-image">
+<h2>Custom Image<a class="headerlink" href="#custom-image" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">custom_image(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">image</span></code>, <code class="docutils literal notranslate"><span class="pre">orientation</span></code>, <code class="docutils literal notranslate"><span class="pre">delay</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">image</span></code> is a 32 element array of 8-bit numbers representing the 16 rows of the desired image.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">orientation</span></code> is the desired orientation to display the image. 0 - 3 -&gt; 0 - 270 degrees</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">delay</span></code> is the time in milliseconds that the image will be displayed for 0-&gt;65535</div>
+<div class="line">Displays the given <code class="docutils literal notranslate"><span class="pre">image</span></code> on the LED Display cube</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo_Logo</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfc</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xef</span><span class="p">,</span> <span class="mh">0xf7</span><span class="p">,</span> <span class="mh">0xc7</span><span class="p">,</span> <span class="mh">0xe3</span><span class="p">,</span> <span class="mh">0xc4</span><span class="p">,</span> <span class="mh">0x23</span><span class="p">,</span> <span class="mh">0xee</span><span class="p">,</span> <span class="mh">0x77</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfc</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x3c</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x7e</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x7e</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x3c</span> <span class="p">]</span>
+
+<span class="n">Robo</span><span class="o">.</span><span class="n">Display1</span><span class="o">.</span><span class="n">custom_image</span><span class="p">(</span><span class="n">Robo_Logo</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pre-programmed-animation">
+<h2>Pre-Programmed Animation<a class="headerlink" href="#pre-programmed-animation" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">animate(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">animation_num</span></code>, <code class="docutils literal notranslate"><span class="pre">repeats</span></code>, <code class="docutils literal notranslate"><span class="pre">reverse</span></code>, <code class="docutils literal notranslate"><span class="pre">orientation</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">animation_num</span></code> is the index of the pre-programmed animation 0-2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">repeats</span></code> number of times to repeat the animation</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">reverse</span></code> 0 or 1 to indicate if the animation should play forwards then backwards or just forwards</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">orientation</span></code> is the desired orientation to display the image. 0 - 3 -&gt; 0 - 270 degrees</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">delay</span></code> is the time in milliseconds that the image will be displayed 0-&gt;65535</div>
+<div class="line">Displays the pre-programmed <code class="docutils literal notranslate"><span class="pre">animation_num</span></code> on the LED Display cube</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">Display1</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-animation">
+<h2>Custom Animation<a class="headerlink" href="#custom-animation" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">custom_animation(<code class="docutils literal notranslate"><span class="pre">self</span></code>, <code class="docutils literal notranslate"><span class="pre">animation</span></code>, <code class="docutils literal notranslate"><span class="pre">repeats</span></code>, <code class="docutils literal notranslate"><span class="pre">reverse</span></code>, <code class="docutils literal notranslate"><span class="pre">orientation</span></code>, <code class="docutils literal notranslate"><span class="pre">frame_rate</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">animation</span></code> is a list of images: 32 element arrays of 8-bit numbers representing the 16 rows of the desired images.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">repeats</span></code> number of times to repeat the animation</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">reverse</span></code> 0 or 1 to indicate if the animation should play forwards then backwards or just forwards</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">orientation</span></code> is the desired orientation to display the image. 0 - 3 -&gt; 0 - 270 degrees</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">frame_rate</span></code> is the time in milliseconds that the image frame will be displayed 0-&gt;65535</div>
+<div class="line">Displays the given <code class="docutils literal notranslate"><span class="pre">animation</span></code> on the LED Display cube</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo_Logo</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfc</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xef</span><span class="p">,</span> <span class="mh">0xf7</span><span class="p">,</span> <span class="mh">0xc7</span><span class="p">,</span> <span class="mh">0xe3</span><span class="p">,</span> <span class="mh">0xc4</span><span class="p">,</span> <span class="mh">0x23</span><span class="p">,</span> <span class="mh">0xee</span><span class="p">,</span> <span class="mh">0x77</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfc</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x3c</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x7e</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x7e</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x3c</span> <span class="p">]</span>
+<span class="n">One</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x07</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x1d</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x19</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x1f</span><span class="p">,</span> <span class="mh">0xfc</span><span class="p">,</span> <span class="mh">0x1f</span><span class="p">,</span> <span class="mh">0xfc</span><span class="p">,</span> <span class="mh">0x1f</span><span class="p">,</span> <span class="mh">0xfc</span><span class="p">]</span>
+<span class="n">Two</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">,</span> <span class="mh">0xe0</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x70</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x70</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x70</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xf0</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xfc</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xfc</span><span class="p">]</span>
+<span class="n">Three</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0x1e</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0x1e</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">,</span> <span class="mh">0x0f</span><span class="p">,</span> <span class="mh">0xfe</span><span class="p">]</span>
+
+<span class="n">animation</span> <span class="o">=</span> <span class="p">[</span><span class="n">Robo_Logo</span><span class="p">,</span> <span class="n">One</span><span class="p">,</span> <span class="n">Two</span><span class="p">,</span> <span class="n">Three</span><span class="p">]</span>
+
+<span class="n">Robo</span><span class="o">.</span><span class="n">Display1</span><span class="o">.</span><span class="n">custom_animation</span><span class="p">(</span><span class="n">animation</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reset">
+<h2>Reset<a class="headerlink" href="#reset" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">reset(<code class="docutils literal notranslate"><span class="pre">self</span></code>)</div>
+<div class="line"><br /></div>
+<div class="line">Clears and resets the LED Display cube</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Robo</span><span class="o">.</span><span class="n">Display1</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="light.html" class="btn btn-neutral float-right" title="Light Sensor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="button.html" class="btn btn-neutral float-left" title="Button" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Jonathan William Morley
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
