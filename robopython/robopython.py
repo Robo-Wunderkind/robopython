@@ -70,10 +70,11 @@ class Robo(object):
                             'Display': 4,
                             'Colour': 1
                           }
-        self.currentBuildBits = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]
-                                 ]
+        self.currentBuildBits = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]
+                                ]
 
         # Create max instances of all objects
         self.Motor1 = Motor('Motor1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 1)
@@ -173,7 +174,23 @@ class Robo(object):
                             [self.IMU4, self.IMU3, self.IMU2, self.IMU1,                   # Byte 7
                              self.LT4, self.LT3, self.LT2, self.LT1],
                             [None, None, None, self.Colour1,                               # Byte 8
-                             self.Display4, self.Display3, self.Display2, self.Display1]
+                             self.Display4, self.Display3, self.Display2, self.Display1],
+                            [None, None, None, None,                                       # Byte 9
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 10
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 11
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 12
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 13
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 14
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 15
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 16
+                             None, None, None, None]
                         ]
         self.triggers = {'21': self.Button1, '22': self.Button2, '23': self.Button3, '24': self.Button4,
                          '25': self.Ultrasonic1, '26': self.Ultrasonic1, '27': self.Ultrasonic2, '28': self.Ultrasonic2,

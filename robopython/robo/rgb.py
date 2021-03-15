@@ -55,7 +55,10 @@ class RGB(object):
                 return
             if self.protocol == "MQTT":
                 command = self.MQTT.get_mqtt_cmd([command_id, payload_size, module_id, on_off, red, green, blue])
+                self.MQTT.message = ""
                 self.MQTT.publish(topic, command)
+                while self.MQTT.message == "":
+                    pass
                 return
         print(self.name + " is NOT Connected!")
 

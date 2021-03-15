@@ -70,10 +70,11 @@ class Robo(object):
                             'Display': 4,
                             'Colour': 1
                           }
-        self.currentBuildBits = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]
-                                 ]
+        self.currentBuildBits = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]
+                                ]
 
         # Create max instances of all objects
         self.Motor1 = Motor('Motor1', self.BLE, self.MQTT, self.protocol, self.default_topic, 1, 1)
@@ -173,7 +174,23 @@ class Robo(object):
                             [self.IMU4, self.IMU3, self.IMU2, self.IMU1,                   # Byte 7
                              self.LT4, self.LT3, self.LT2, self.LT1],
                             [None, None, None, self.Colour1,                               # Byte 8
-                             self.Display4, self.Display3, self.Display2, self.Display1]
+                             self.Display4, self.Display3, self.Display2, self.Display1],
+                            [None, None, None, None,                                       # Byte 9
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 10
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 11
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 12
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 13
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 14
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 15
+                             None, None, None, None],
+                            [None, None, None, None,                                       # Byte 16
+                             None, None, None, None]
                         ]
         self.triggers = {'21': self.Button1, '22': self.Button2, '23': self.Button3, '24': self.Button4,
                          '25': self.Ultrasonic1, '26': self.Ultrasonic1, '27': self.Ultrasonic2, '28': self.Ultrasonic2,
@@ -399,12 +416,77 @@ class Robo(object):
             return True
 
     def turn_inf(self, vel, direction):
+        """
+        Turn your robot clockwise or counter clockwise forever.
+
+        Parameters
+        ----------
+        vel : int
+            The velocity in mm/second.
+        direction : bool 
+            0 or 1 to indicate direction
+        Returns
+        -------
+        None 
+
+        Examples
+        --------
+        Robo.turn_inf(100, 0)
+        
+        """
         self.turn(vel, 65000, direction, 0)
 
     def drive_inf(self, vel, direction):
+        """
+        Drive your robot forwards or backwards for infinite distance.
+
+        Parameters
+        ----------
+        vel : int
+            The velocity in mm/second.
+        direction : bool 
+            0 or 1 to indicate direction
+        Returns
+        -------
+        None 
+
+        Examples
+        --------
+        Robo.drive_inf(100, 0)
+        
+        """
         self.drive(vel, 65000, direction, None, 0)
 
-    def drive(self, vel, distance, direction, topic=None, wait=0, motors=(1, 2), wd=89):
+    def drive(self, vel, distance, direction, wait=0, topic=None, motors=(1, 2), wd=89):
+        """
+        Drive your robot forwards or backwards.
+
+        Parameters
+        ----------
+        vel : int
+            The velocity in mm/second.
+        distance : int 
+            The desired distance to travel
+        direction : bool 
+            0 or 1 to indicate direction
+        direction : bool 
+            0 or 1 to indicate direction
+        topic : string
+            the mqtt topic we with to publish to (usually use the default)
+        motors : tuple
+            a tuple containing which motors are involved in this action - defaults to motors 1 and 2
+        wd : int
+            The diameter of the wheels attached to the robot. Default is 89 mm
+        Returns
+        -------
+        True if action has completed
+        False if the distance was set to be infinite or if we do not want to wait for action to complete
+
+        Examples
+        --------
+        Robo.drive(100, 1000, 1)
+        
+        """
         motor_cmds = None
         if len(motors) != 2:
             print("Drive is only valid for 2 motors at this time, use set_drive for custom drive commands")
@@ -425,6 +507,26 @@ class Robo(object):
             return True
 
     def gyro_turn(self, vel, angle, wd=0x59):
+        """
+        Turn Your Robo using the gyroscope in the accelerometer cube as sensor feedback.
+
+        Parameters
+        ----------
+        vel : int
+            The velocity in mm/second.
+        angle : int 
+            The desired angle to turn relative to the robot's current position
+        wd : int
+            The diameter of the wheels attached to the robot. Default is 89 mm
+        Returns
+        -------
+        None 
+
+        Examples
+        --------
+        Robo.gyro_turn(100, 90)
+        
+        """
         packet_size = 0x0c
         command_id = 0xaa
         payload_size = 0x0a

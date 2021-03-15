@@ -9,7 +9,6 @@ class MQTT(object):
     def __init__(self, client_name="RoboController", host_name="Robo_IoT", broker_address = "192.168.3.254"):
         self.broker = host_name
         self.broker_address = broker_address
-        #self.broker_address = self.get_broker_address()
         self.client = mqtt.Client(client_name)
         self.client.on_message = self.on_message  # attach function to callback
         self.MQTT_Connected = False
@@ -18,7 +17,7 @@ class MQTT(object):
         self.roboName = None
         self.build_cmd = '01'
         self.event_cmd = 'c0'
-        self.QOS = 2
+        self.QOS = 0 # 0-2
         self.robo_dict = {}
         self.client.loop_stop() # make sure we start fresh
         self.connect()
@@ -64,8 +63,8 @@ class MQTT(object):
     def on_message(self, client, userdata, message):
         self.message = str(message.payload)
         self.topic = str(message.topic)
-        print("message received " + self.message)
-        print("message topic = " + self.topic)
+        #print("message received " + self.message)
+        #print("message topic = " + self.topic)
         #print("message qos = " + str(message.qos))
         #print("message retain flag = " + str(message.retain))
         if self.topic is not None:
