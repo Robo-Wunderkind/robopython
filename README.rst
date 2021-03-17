@@ -31,8 +31,7 @@ Python 3.x Supported
 Upcoming Features
 -----------------
 
-* New Module integration such as Line Tracker
-* MQTT Wi-Fi networking
+* New Module integration such as Servo, Motor, Hinge, and Camera
 * Fuzzy Logic Filter for Sensors/States
 
 Getting Started
