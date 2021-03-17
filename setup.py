@@ -11,7 +11,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', 'pyserial', 'enum-compat', 'pexpect', 'paho-mqtt']
+requirements = ['Click>=6.0', 'pyserial', 'enum-compat', 'pexpect', 'paho-mqtt', 'future']
 
 setup_requirements = [ ]
 
@@ -28,7 +28,7 @@ setup(
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
         "Programming Language :: Python :: 3",
-        'Programming Language :: Python :: 3.7'
+        'Programming Language :: Python :: 3.9'
        
     ],
     description="Robo Wunderkind Python API - BLED112 USB Dongle Required",
@@ -48,6 +48,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/JonRobo/robopython',
-    version='1.0.3',
+    version='1.0.4',
     zip_safe=False,
 )

@@ -3,3 +3,4 @@ pyserial
 enum-compat
 pexpect
 paho-mqtt
+future

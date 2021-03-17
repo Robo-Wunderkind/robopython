@@ -29,7 +29,7 @@ class Robo(object):
 
     characters = OrderedDict(sorted(characters.items(), key=lambda t: t[0]))
 
-    def __init__(self, name, mqtt=None, com_port=None):
+    def __init__(self, name, com_port=None, mqtt=None):
         self.name = "RW_" + name
         self.MQTT = mqtt
         self.build = []
