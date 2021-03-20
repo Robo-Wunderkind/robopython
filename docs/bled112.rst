@@ -45,10 +45,10 @@ Start
 Stop
 ####
 
-| start(``self``)
+| stop(``self``)
 | 
-| Starts the BLE dongle
+| Stops the BLE dongle
 
 ::
 
-	BLE.start()
+	BLE.stop()
